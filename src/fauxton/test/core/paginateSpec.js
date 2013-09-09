@@ -56,13 +56,6 @@ define([
 
     describe('#next', function () {
 
-      it('should set direction as next', function () {
-        paginate.$('a#next').click();
-
-        assert.equal(paginate.currentDirection, 'next');
-
-      });
-
       it('Should navigate', function () {
         var navigateMock = sinon.spy(FauxtonAPI, 'navigate');
 
@@ -76,13 +69,6 @@ define([
 
 
     describe('#previous', function () {
-
-      it('should set direction as next', function () {
-        paginate.$('a#previous').click();
-
-        assert.equal(paginate.currentDirection, 'previous');
-
-      });
 
       it('Should navigate', function () {
         var navigateMock = sinon.spy(FauxtonAPI, 'navigate');

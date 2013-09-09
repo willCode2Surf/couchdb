@@ -302,7 +302,7 @@ function(app, FauxtonAPI) {
       that = this;
       this.viewMeta = {
         total_rows: resp.total_rows,
-        offest: resp.offset,
+        offset: resp.offset,
         update_seq: resp.update_seq
       };
       return _.map(resp.rows, function(row) {
@@ -322,7 +322,7 @@ function(app, FauxtonAPI) {
 
     initialize: function(_models, options) {
       this.database = options.database;
-      this.params = _.extend({limit: 10, reduce: false}, options.params);
+      this.params = _.extend({limit: 20, reduce: false}, options.params);
       this.idxType = "_view";
       this.view = options.view;
       this.design = options.design.replace('_design/','');
@@ -450,7 +450,7 @@ function(app, FauxtonAPI) {
       this.rows = options.rows;
       this.view = options.view;
       this.design = options.design.replace('_design/','');
-      this.params = _.extend({limit: 10, reduce: false}, options.params);
+      this.params = _.extend({limit: 20, reduce: false}, options.params);
       this.idxType = "_view";
     },
 
@@ -464,7 +464,7 @@ function(app, FauxtonAPI) {
 
       this.viewMeta = {
         total_rows: this.rows.length,
-        offest: 0,
+        offset: 0,
         update_seq: false
       };
 

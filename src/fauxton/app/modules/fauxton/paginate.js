@@ -49,7 +49,6 @@ function(app, FauxtonAPI) {
       "click a#previous": 'previousClicked'
     },
 
-    currentDirection: 'next',
     previousIds: [],
 
     scrollTo: function () {
@@ -68,13 +67,11 @@ function(app, FauxtonAPI) {
 
     previousClicked: function (event) {
       event.preventDefault();
-      this.currentDirection = 'previous';
       FauxtonAPI.navigate(this.previousUrlfn());
     },
 
     nextClicked: function (event) {
       event.preventDefault();
-      this.currentDirection = 'next';
       this.previousIds.push(this.collection.first().id);
       FauxtonAPI.navigate(this.nextUrlfn());
     },
