@@ -67,13 +67,16 @@ function(app, FauxtonAPI) {
 
     previousClicked: function (event) {
       event.preventDefault();
-      FauxtonAPI.navigate(this.previousUrlfn());
+      FauxtonAPI.navigate(this.previousUrlfn(), {trigger: false});
+      FauxtonAPI.triggerRouteEvent('paginate', 'previous');
     },
 
     nextClicked: function (event) {
       event.preventDefault();
       this.previousIds.push(this.collection.first().id);
-      FauxtonAPI.navigate(this.nextUrlfn());
+      console.log(this.previousIds);
+      FauxtonAPI.navigate(this.nextUrlfn(), {trigger: false});
+      FauxtonAPI.triggerRouteEvent('paginate', 'next');
     },
 
     serialize: function () {

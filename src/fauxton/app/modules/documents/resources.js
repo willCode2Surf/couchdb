@@ -253,6 +253,7 @@ function(app, FauxtonAPI) {
     initialize: function(_models, options) {
       this.database = options.database;
       this.params = options.params;
+      this.skipFirstItem = false;
     },
 
     url: function(context) {
@@ -274,7 +275,9 @@ function(app, FauxtonAPI) {
 
       this.params.startkey_docid = '"' + lastId + '"';
       this.params.startkey = '"' + lastId + '"';
-      this.params.limit = num;
+      // when paginating forward, fetch 21 and don't show
+      // the first item as it was the last item in the previous list
+      this.params.limit = num + 1;
       return this.url('app');
     },
 
@@ -287,6 +290,7 @@ function(app, FauxtonAPI) {
         delete this.params.startkey;
         delete this.params.startkey_docid;
       }
+
       return this.url('app');
     },
 
@@ -298,14 +302,34 @@ function(app, FauxtonAPI) {
       return this.viewMeta.update_seq || false;
     },
 
+    recordStart: function () {
+      if (this.viewMeta.offset === 0) {
+        return 1;
+      }
+
+      if (this.skipFirstItem) {
+        return this.viewMeta.offset + 2;
+      }
+
+      return this.viewMeta.offset + 1;
+    },
+
     parse: function(resp) {
-      that = this;
+      var rows = resp.rows;
+
       this.viewMeta = {
         total_rows: resp.total_rows,
         offset: resp.offset,
         update_seq: resp.update_seq
       };
-      return _.map(resp.rows, function(row) {
+
+      //Paginating, don't show first item as it was the last
+      //item in the previous page
+      if (this.skipFirstItem) {
+        console.log('skipping');
+        rows = rows.splice(1);
+      }
+      return _.map(rows, function(row) {
         return {
           _id: row.id,
           _rev: row.value.rev,
@@ -326,6 +350,7 @@ function(app, FauxtonAPI) {
       this.idxType = "_view";
       this.view = options.view;
       this.design = options.design.replace('_design/','');
+      this.skipFirstItem = false;
     },
 
     url: function(context) {
@@ -366,6 +391,18 @@ function(app, FauxtonAPI) {
       return this.url('app');
     },
 
+    recordStart: function () {
+      if (this.viewMeta.offset === 0) {
+        return 1;
+      }
+
+      if (this.skipFirstItem) {
+        return this.viewMeta.offset + 2;
+      }
+
+      return this.viewMeta.offset + 1;
+    },
+
     totalRows: function() {
       return this.viewMeta.total_rows || "unknown";
     },
@@ -375,15 +412,21 @@ function(app, FauxtonAPI) {
     },
 
     parse: function(resp) {
+      var rows = resp.rows;
       this.endTime = new Date().getTime();
       this.requestDuration = (this.endTime - this.startTime);
+
+      if (this.skipFirstItem) {
+        rows = rows.splice(1);
+        console.log('skip');
+      }
 
       this.viewMeta = {
         total_rows: resp.total_rows,
         offset: resp.offset,
         update_seq: resp.update_seq
       };
-      return _.map(resp.rows, function(row) {
+      return _.map(rows, function(row) {
         return {
           value: row.value,
           key: row.key,
