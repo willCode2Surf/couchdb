@@ -46,6 +46,10 @@ function (app, FauxtonAPI ) {
     addItem: function (value, type, section) {
       var sectionValues = this.get(section);
 
+      if (!sectionValues || !sectionValues[type]) { return; }
+
+      if (sectionValues[type].indexOf(value) > -1) { return; }
+
       sectionValues[type].push(value);
       return this.set(section, sectionValues);
     }
