@@ -27,13 +27,7 @@ function (app, FauxtonAPI, Permissions ) {
       this.listenTo(Permissions.events, 'itemRemoved', this.itemRemoved);
     },
 
-    events: {
-      "submit .permission-item-form": "addItem",
-      'click .close': "removeItem"
-    },
-
     itemRemoved: function (event) {
-      console.log('item remove');
       this.model.set({
         admins: this.adminsView.items(),
         members: this.membersView.items()
@@ -43,8 +37,14 @@ function (app, FauxtonAPI, Permissions ) {
         FauxtonAPI.addNotification({
           msg: 'Database permissions has been updated.'
         });
+        }, function (xhr) {
+        FauxtonAPI.addNotification({
+          msg: 'Could not update permissions - reason: ' + xhr.responseText,
+          type: 'error'
+        });
       });
     },
+
     beforeRender: function () {
       this.adminsView = this.insertView('#sections', new Permissions.PermissionSection({
         model: this.model,
@@ -59,12 +59,9 @@ function (app, FauxtonAPI, Permissions ) {
       }));
     },
 
-    
     serialize: function () {
-      console.log('s', this.model.toJSON());
       return {
         databaseName: this.database.id,
-        security: this.model.toJSON()
       };
     }
   });
@@ -135,11 +132,24 @@ function (app, FauxtonAPI, Permissions ) {
           type = $item.data('type'),
           that = this;
 
-      this.model.addItem(value, type, section);
+      var resp = this.model.addItem(value, type, section);
+
+      if (resp && resp.error) {
+        return FauxtonAPI.addNotification({
+          msg: resp.msg,
+          type: 'error'
+        });
+      }
+
       this.model.save().then(function () {
         that.render();
         FauxtonAPI.addNotification({
           msg: 'Database permissions has been updated.'
+        });
+      }, function (xhr) {
+        FauxtonAPI.addNotification({
+          msg: 'Could not update permissions - reason: ' + xhr.responseText,
+          type: 'error'
         });
       });
     },
