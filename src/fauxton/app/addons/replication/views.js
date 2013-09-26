@@ -24,7 +24,6 @@ function(app, FauxtonAPI, Components, replication) {
     intervalId: null
   };
 
-  app.temphost ="http://deathbear.cloudant.com";
   _.extend(Events, Backbone.Events);
 
   // NOTES: http://wiki.apache.org/couchdb/Replication
@@ -189,7 +188,7 @@ function(app, FauxtonAPI, Components, replication) {
     setAuthHeaders: function(source,user,pass){
       var basicHeader = new FauxtonAPI.session.createBasicAuthHeader(user,pass),
           json = {};
-          json.url = app.temphost+"/"+source;
+          json.url = app.host+"/"+source;
           json.headers = {
               "Authorization": basicHeader.basicAuthHeader
           };
