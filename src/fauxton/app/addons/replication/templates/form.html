@@ -11,64 +11,67 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 -->
-
 <form id="replication" class="form-horizontal">
-		<div class="from form_set  local">
-			<div class="btn-group">
-			  <button class="btn local-btn" type="button" value="local">Local</button>
-			  <button class="btn remote-btn" type="button" value="remote">Remote</button>
-			</div>
-
-			<div class="from_local local_option">
-				<select id="from_name" name="source">
-					<% _.each( databases, function( db, i ){ %>
-					   <option value="<%=db.name%>" <% if(selectedDB == db.name){%>selected<%}%> ><%=db.name%></option>
-					<% }); %>
-				</select>
-			</div>
-			<div class="from_to_remote remote_option">
-				<input type="text" id="from_url" name="source" size="30" value="http://">
-			</div>
+	<!-- SOURCE -->
+	<div class="control-group" id="step1">
+		<label class="control-label">FROM: </label>
+		<div class="source controls">
+			<p>Select a database to replicate.</p>
+			<div id="source_form"></div>
 		</div>
 
-		<div class="form_set middle">
-			<span class="circle "></span>
-				<a href="#" title="Switch Target and Source" class="swap">
-					<span class="fonticon-swap-arrows"></span>
-				</a>
-			</span>
+	</div>
+
+	<div class="control-group hide" id="step2">
+		<label class="control-label">TO:</label>
+		<div class="target controls">
+			<p>Where do you want to replicate your data?</p>
+			<div class="btn-group" id="create_target">
+
+				<label for="existing-target" class="btn">
+					Existing Database  
+				</label>
+				
+				<label for="new-target" class="btn">
+					New Database
+				</label>
+
+				<input type="radio" id="existing-target" name="create_target" class="next" data-next-step="step3" value="false">
+				<input type="radio" id="new-target" name="create_target" class="next" data-next-step="step3" value="true">
+	
+			</div>
 		</div>
+	</div>
 
-		<div class="to form_set local">
-			<div class="btn-group">
-			  <button class="btn local-btn" type="button" value="local">Local</button>
-			  <button class="btn remote-btn" type="button" value="remote">Remote</button>
-			</div>
-			<div class="to_local local_option">
-				<input type="text" id="to_name" name="target" size="30" placeholder="database name">
-			</div>
+	<!--TARGET-->
+	<div class="control-group hide" id="step3">
+		<div class="target controls">
+			<p>Select a target database for your data.</p>
+			<div id="target_form"></div>
 
-			<div class="to_remote remote_option">
-				<input type="text" id="to_url" name="target" size="30" value="http://">
-			</div>
-		</div>
-
-
-	<div class="actions">
-		<div class="control-group">
 			<label for="continuous">
 				<input type="checkbox" name="continuous" value="true" id="continuous">
-				Continuous
+				Make this replication continuous.
 			</label>
 
-			<label for="createTarget">
-				<input type="checkbox" name="create_target" value="true" id="createTarget">
-				Create Target <a href="<%=getDocUrl('replication_doc')%>" target="_blank"><i class="icon-question-sign" rel="tooltip" title="Create the target database"></i></a>
-			</label>
 		</div>
 
-		<button class="btn btn-success btn-large save" type="submit">Replicate</button>
 	</div>
+	<div class="control-group hide" id="step4">
+		<label class="control-label">NAME: </label>
+		<div class="source controls">
+			<p>Give this replication task an ID. (optional)</p>
+			<input type="text" id="repID" name="_id" size="30" value="" data-validation="optional" placeholder="e.g. my_rep">
+
+			<div class="actions">
+				<button class="button green save btn-large fonticon-replicate" type="submit" >Replicate</button>
+			</div>
+		</div>
+
+	</div>
+
+
+
 </form>
 
 <div id="replicationStatus"></div>

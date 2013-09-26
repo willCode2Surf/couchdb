@@ -21,6 +21,9 @@ function (app, FauxtonAPI, ActiveTasks) {
 
   //these are probably dupes from the database modules. I'm going to keep them seperate for now.
   Replication.DBModel = Backbone.Model.extend({
+    url: function(){
+      return app.host + "/" + this.id;
+    },
     label: function () {
       //for autocomplete
         return this.get("name");
@@ -60,9 +63,11 @@ function (app, FauxtonAPI, ActiveTasks) {
 
   Replication.Replicate = Backbone.Model.extend({
     url: function(){
-      return app.host + "/_replicate";
+      return app.host + "/_replicator";
     }
   });
+
+
 
   return Replication;
 });

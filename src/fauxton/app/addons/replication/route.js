@@ -18,7 +18,7 @@ define([
 ],
 function(app, FauxtonAPI, Replication, Views) {
   var  RepRouteObject = FauxtonAPI.RouteObject.extend({
-    layout: "one_pane",
+    layout: "one_pane_notabs",
     roles: ["_admin"],
     routes: {
       "replication": "defaultView",
@@ -29,7 +29,7 @@ function(app, FauxtonAPI, Replication, Views) {
       return app.host+"/_replication";
     },
     crumbs: [
-      {"name": "Replicate changes from: ", "link": "replication"}
+      {"name": "", "link": "replication"}
     ],
     defaultView: function(dbname){
 			this.databases = new Replication.DBList({});
