@@ -1283,7 +1283,7 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, Codemirror, JSHint, re
         mapFun.val(this.langTemplates[this.defaultLang].map);
         reduceFun.val(this.langTemplates[this.defaultLang].reduce);
       } else {
-        this.$('#index').hide();
+        setTimeout(function(){this.$('#index').hide();}, 300);
         this.$('#index-nav').parent().removeClass('active');
       }
 
