@@ -45,8 +45,10 @@ function() {
     "database_permission": "http://docs.couchdb.org/en/latest/api/database/security.html#db-security"
   }; 
   
-  Helpers.getDocUrl = function(doc){
-    return Helpers.docs[doc] || '#';
+  Helpers.getDocUrl = function(getthis){
+    console.log(getthis, "oh hai", Helpers.docs, "docs");
+    console.log(Helpers.docs[getthis], "inside helpers");
+    return Helpers.docs[getthis] || '#';
   };
 
   // File size pretty printing, taken from futon.format.js

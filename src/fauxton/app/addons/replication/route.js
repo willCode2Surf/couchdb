@@ -26,7 +26,7 @@ function(app, FauxtonAPI, Replication, Views) {
     },
     selectedHeader: "Replication",
     apiUrl: function() {
-      return app.host+"/_replication";
+      return [app.host+"/_replicate", "replication_doc"];
     },
     crumbs: [
       {"name": "Replicate changes from: ", "link": "replication"}

@@ -30,7 +30,7 @@ function (app, FauxtonAPI, Activetasks, Views) {
     {"name": "Active tasks", "link": "activetasks"}
     ],
     apiUrl: function(){
-      return app.host+"/_active_tasks";
+      return [app.host+"/_active_tasks", "docs"];
     }, 
 
     roles: ["_admin"],

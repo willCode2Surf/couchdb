@@ -37,7 +37,7 @@ function(app, FauxtonAPI, Databases, Views) {
     },
 
     apiUrl: function() {
-      return this.databases.url();
+      return [this.databases.url(), "docs"];
     },
 
     selectedHeader: "Databases",
