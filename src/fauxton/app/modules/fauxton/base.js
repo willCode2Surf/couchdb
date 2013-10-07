@@ -190,7 +190,7 @@ function(app, Backbone, resizeColumns) {
     template: "templates/fauxton/api_bar",
     endpoint: '_all_docs',
 
-    docs: 'docs',
+    documentation: 'docs',
 
     events:  {
       "click .api-url-btn" : "toggleAPIbar"
@@ -211,18 +211,14 @@ function(app, Backbone, resizeColumns) {
     serialize: function() {
       return {
         endpoint: this.endpoint,
-        docname: this.docs
+        documentation: this.documentation
       };
     },
 
     update: function(endpoint) {
-      console.log(endpoint);
-      // Take endpoint and write it into the api bar.
-      console.log('ApiBar endpoint: ' + endpoint);
       this.endpoint = endpoint[0];
-      this.docs = endpoint[1];
+      this.documentation = endpoint[1];
       this.render();
-      console.log(this.docs, "docs");
     }
 
   });

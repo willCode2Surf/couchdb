@@ -21,7 +21,8 @@ function (app, FauxtonAPI) {
 
   Config.Model = Backbone.Model.extend({});
   Config.OptionModel = Backbone.Model.extend({
-
+    documentation: "config",
+    
     url: function () {
       return app.host + '/_config/' + this.get("section") + '/' + this.get("name");
     },

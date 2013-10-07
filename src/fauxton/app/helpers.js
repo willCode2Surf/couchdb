@@ -42,12 +42,13 @@ function() {
     "map_functions": "http://docs.couchdb.org/en/latest/couchapp/ddocs.html#map-functions",
     "reduce_functions": "http://docs.couchdb.org/en/latest/couchapp/ddocs.html#reduce-and-rereduce-functions",
     "api_reference": "http://docs.couchdb.org/en/latest/http-api.html",
-    "database_permission": "http://docs.couchdb.org/en/latest/api/database/security.html#db-security"
+    "database_permission": "http://docs.couchdb.org/en/latest/api/database/security.html#db-security",
+    "stats": "http://docs.couchdb.org/en/latest/api/server/common.html?highlight=stats#get--_stats",
+    "_active_tasks": "http://docs.couchdb.org/en/latest/api/server/common.html?highlight=stats#active-tasks",
+    "log": "http://docs.couchdb.org/en/latest/api/server/common.html?highlight=stats#log"
   }; 
   
   Helpers.getDocUrl = function(getthis){
-    console.log(getthis, "oh hai", Helpers.docs, "docs");
-    console.log(Helpers.docs[getthis], "inside helpers");
     return Helpers.docs[getthis] || '#';
   };
 
