@@ -364,7 +364,6 @@ function(app, Fauxton) {
       });
 
       if (this.get('apiUrl')){
-        console.log(this.get('apiUrl'), "API URL");
         masterLayout.apiBar.update(this.get('apiUrl'));
       } 
 

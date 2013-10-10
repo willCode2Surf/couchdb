@@ -48,8 +48,8 @@ function() {
     "log": "http://docs.couchdb.org/en/latest/api/server/common.html?highlight=stats#log"
   }; 
   
-  Helpers.getDocUrl = function(getthis){
-    return Helpers.docs[getthis] || '#';
+  Helpers.getDocUrl = function(docKey){
+    return Helpers.docs[docKey] || '#';
   };
 
   // File size pretty printing, taken from futon.format.js
