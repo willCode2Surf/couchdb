@@ -278,7 +278,13 @@ function(app, FauxtonAPI) {
 
     urlNextPage: function (num, lastId) {
       if (!lastId) {
-        lastId = this.last().id;
+        var doc = this.last();
+
+        if (doc) {
+          lastId = doc.id;
+        } else {
+          lastId = '';
+        }
       }
 
       this.params.startkey_docid = '"' + lastId + '"';
