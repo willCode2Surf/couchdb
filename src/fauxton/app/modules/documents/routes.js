@@ -204,8 +204,12 @@ function(app, FauxtonAPI, Documents, Databases) {
 
       if (this.viewEditor) { this.viewEditor.remove(); }
 
-
       this.toolsView = this.setView("#dashboard-upper-menu", new Documents.Views.JumpToDoc({
+        database: this.data.database,
+        collection: this.data.database.allDocs
+      }));
+
+      this.setView("#dashboard-upper-content", new Documents.Views.AllDocsLayout({
         database: this.data.database,
         collection: this.data.database.allDocs
       }));
@@ -295,7 +299,14 @@ function(app, FauxtonAPI, Documents, Databases) {
 
     updateAllDocsFromView: function (event) {
       var view = event.view,
-      ddoc = event.ddoc;
+          docOptions = app.getParams(),
+          ddoc = event.ddoc;
+
+      if (event.allDocs) {
+        docOptions.include_docs = true;
+        this.data.database.buildAllDocs(docOptions);
+        return;
+      }
 
       this.data.indexedDocs = new Documents.IndexCollection(null, {
         database: this.data.database,
