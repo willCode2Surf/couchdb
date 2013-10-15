@@ -19,9 +19,6 @@ define([
 ],
 function(app, FauxtonAPI, VerifyInstall, Databases, Documents) {
 
-  // x - &#x2717;
-  // correct -  &#10003;
-
   VerifyInstall.Main = FauxtonAPI.View.extend({
     template: 'addons/verifyinstall/templates/main',
 
@@ -75,8 +72,25 @@ function(app, FauxtonAPI, VerifyInstall, Databases, Documents) {
       };
     },
 
+    setupDB: function (db) {
+      var deferred = FauxtonAPI.Deferred();
+
+      db.fetch()
+      .then(function () {
+        return db.destroy();
+      }, function () {
+        deferred.resolve();
+      })
+      .then(function () {
+        deferred.resolve();
+      });
+
+      return deferred;
+    },
+
     startTest: function () {
       this.disableButton();
+      this.$('.status').text('');
 
       var doc, viewDoc, dbReplicate,
           setPass = this.setPass,
@@ -85,11 +99,11 @@ function(app, FauxtonAPI, VerifyInstall, Databases, Documents) {
           formatError = this.formatError;
 
       var db = new Databases.Model({
-        id: 'garren_testdb',
-        name: 'garren_testdb'
+        id: 'verifytestdb',
+        name: 'verifytestdb'
       });
-      
-      db.destroy()
+
+      this.setupDB(db)
       .then(function () {
         return db.save();
       }, formatError('create-database'))
@@ -194,7 +208,6 @@ function(app, FauxtonAPI, VerifyInstall, Databases, Documents) {
       }, formatError('replicate'));
 
       this.enableButton();
-      //*** SET HEADERS
     }
   });
 

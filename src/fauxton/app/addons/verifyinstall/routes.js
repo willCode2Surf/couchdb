@@ -23,6 +23,7 @@ function(app, FauxtonAPI, VerifyInstall) {
     routes: {
       'verifyinstall': "verifyInstall"
     },
+    selectedHeader: "Verify",
 
     verifyInstall: function () {
       this.setView('#dashboard-content', new VerifyInstall.Main({}));
