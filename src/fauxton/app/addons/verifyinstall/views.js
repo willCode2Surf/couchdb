@@ -14,10 +14,8 @@ define([
   "app",
   "api",
   "addons/verifyinstall/resources",
-  "modules/databases/resources",
-  "modules/documents/resources"
 ],
-function(app, FauxtonAPI, VerifyInstall, Databases, Documents) {
+function(app, FauxtonAPI, VerifyInstall) {
 
   VerifyInstall.Main = FauxtonAPI.View.extend({
     template: 'addons/verifyinstall/templates/main',
@@ -72,139 +70,50 @@ function(app, FauxtonAPI, VerifyInstall, Databases, Documents) {
       };
     },
 
-    setupDB: function (db) {
-      var deferred = FauxtonAPI.Deferred();
-
-      db.fetch()
-      .then(function () {
-        return db.destroy();
-      }, function () {
-        deferred.resolve();
-      })
-      .then(function () {
-        deferred.resolve();
-      });
-
-      return deferred;
-    },
-
+    
     startTest: function () {
       this.disableButton();
       this.$('.status').text('');
 
-      var doc, viewDoc, dbReplicate,
+      var testProcess = VerifyInstall.testProcess,
           setPass = this.setPass,
           complete = this.complete,
           setError = this.setError,
           formatError = this.formatError;
 
-      var db = new Databases.Model({
-        id: 'verifytestdb',
-        name: 'verifytestdb'
-      });
-
-      this.setupDB(db)
+      testProcess.setup()
       .then(function () {
-        return db.save();
+        return testProcess.saveDB();
       }, formatError('create-database'))
       .then(function () {
         setPass('create-database');
-        doc = new Documents.Doc({_id: 'test_doc_1', a: 1}, {
-          database: db
-        });
-        return doc.save();
+        return testProcess.saveDoc();
       }, formatError('create-document'))
       .then(function () {
         setPass('create-document');
-        doc.set({b: "hello"});
-        return doc.save(); 
+        return testProcess.updateDoc();
       }, formatError('update-document'))
       .then(function () {
         setPass('update-document');
-        return doc.destroy();
+        return testProcess.destroyDoc();
       }, formatError('delete-document'))
       .then(function () {
         setPass('delete-document');
-      })
-      .then(function () {
-        var doc1 = new Documents.Doc({_id: 'test_doc10', a: 1}, {
-          database: db
-        });
-
-        var doc2 = new Documents.Doc({_id: 'test_doc_20', a: 2}, {
-          database: db
-        });
-
-        var doc3 = new Documents.Doc({_id: 'test_doc_30', a: 3}, {
-          database: db
-        });
-
-        viewDoc = new Documents.Doc({
-          _id: '_design/view_check',
-          views: {
-            'testview': { 
-              map:'function (doc) { emit(doc._id, doc.a); }',
-              reduce: '_sum'
-            }
-          } 
-        },{
-          database: db,
-        });
-
-        return FauxtonAPI.when([doc1.save(),doc2.save(), doc3.save(), viewDoc.save()]);
-
+        return testProcess.setupView();
       }, formatError('create-view'))
       .then(function () {
-        var deferred = FauxtonAPI.Deferred();
-        var promise = $.get(viewDoc.url() + '/_view/testview');
-
-        promise.then(function (resp) { 
-          var row = JSON.parse(resp).rows[0];
-          if (row.value === 6) {
-            return deferred.resolve();
-          }
-          var reason = {
-              reason: 'Values expect 6, got ' + row.value
-            };
-
-          deferred.reject({responseText: JSON.stringify(reason)});
-        }, deferred.reject);
-
-        return deferred;
+        return testProcess.testView();
       }, formatError('create-view'))
       .then(function () {
         setPass('create-view');
-
-        return $.ajax({
-          url: '/_replicate',
-          contentType: 'application/json',
-          type: 'POST',
-          dataType: 'json',
-          processData: false,
-          data: JSON.stringify({
-            create_target: true,
-            source: 'garren_testdb',
-            target: 'test_replicate'
-          }),
-
-        });
+        return testProcess.setupReplicate();
       }, formatError('create-view'))
       .then(function () {
-        dbReplicate = new Databases.Model({
-          id: 'test_replicate',
-          name: 'test_replicate'
-        });
-
-        return dbReplicate.fetch();
+        return testProcess.testReplicate();
       }, formatError('replicate'))
       .then(function () {
-        var docCount = dbReplicate.get('doc_count');
-        if ( docCount === 4) {
           setPass('replicate');
           complete();
-          return;
-        }
-        setError('replicate', 'Replication Failed, expected 4 docs got ' + docCount);
       }, formatError('replicate'));
 
       this.enableButton();
