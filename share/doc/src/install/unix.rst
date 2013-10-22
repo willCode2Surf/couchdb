@@ -177,6 +177,9 @@ To check that everything has worked, point your web browser to::
 
 From here you should run the test suite in Firefox.
 
+
+.. _install/unix/security:
+
 Security Considerations
 -----------------------
 

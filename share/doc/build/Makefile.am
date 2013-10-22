@@ -167,6 +167,7 @@ html_files = \
     html/_sources/experimental.txt \
     html/_sources/externals.txt \
     html/_sources/json-structure.txt \
+    html/_sources/troubleshooting.txt \
     html/_static/ajax-loader.gif \
     html/_static/basic.css \
     html/_static/comment-bright.png \
@@ -294,7 +295,8 @@ html_files = \
     html/json-structure.html \
     html/objects.inv \
     html/search.html \
-    html/searchindex.js
+    html/searchindex.js \
+    html/troubleshooting.html
 
 if BUILD_HTML
 html_files_build = $(html_files)
@@ -435,6 +437,7 @@ src_files = \
     ../src/contributing.rst \
     ../src/externals.rst \
     ../src/json-structure.rst \
+    ../src/troubleshooting.rst \
     ../src/conf.py
 
 src_files_html = \

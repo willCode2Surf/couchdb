@@ -20,6 +20,7 @@
 
     intro/index
     install/index
+    troubleshooting
     config/index
     replication/index
     maintenance/index
