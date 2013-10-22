@@ -65,6 +65,26 @@ may takes for some time (or it may be even not fixed by some reasons) there
 you may found solutions to workaround them.
 
 
+Re-inserting a document silently fails during compaction
+--------------------------------------------------------
+
+:issue:`1415`
+
+There is a potential interaction between compaction and the repeated deletion
+and creation of an identical document. During compaction, if you delete
+a document the next creation of that document will silently fail.
+It is suggested that you add a field that changes with each creation(salt).
+
+For example, include a new UUID or a random number::
+
+  {
+      "_id": "Mt_St_Helens",
+      "Erupting": False,
+      "uuid":  "cb3d21a8-3278-11e3-b0c0-3c07540286af"
+  }
+
+
+
 There Is No My Issue Solution
 =============================
 
