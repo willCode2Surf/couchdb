@@ -11,12 +11,13 @@
 // the License.
 
 define([
-       "app",
-       // Libs
-       "api"
+  "app",
+  // Libs
+  "api",
+  "ace/ace"
 ],
 
-function(app, FauxtonAPI) {
+function(app, FauxtonAPI, ace) {
   var Components = app.module();
 
   Components.Pagination = FauxtonAPI.View.extend({
@@ -173,6 +174,65 @@ function(app, FauxtonAPI) {
         }
       });
     }
+  });
+
+  Components.Editor = FauxtonAPI.View.extend({
+    initialize: function (options) {
+      this.editorId = options.editorId;
+      this.mode = options.mode || "json";
+      this.commands = options.commands;
+    },
+
+    afterRender: function () {
+      this.editor = ace.edit(this.editorId);
+      this.editor.setTheme("ace/theme/crimson_editor");
+      this.editor.getSession().setMode("ace/mode/" + this.mode);
+      this.editor.setShowPrintMargin(false);
+      this.editor.gotoLine(2);
+      this.addCommands();
+      this.removeIncorrectAnnotations();
+    },
+
+    addCommands: function () {
+      _.each(this.commands, function (command) {
+        var out = this.editor.commands.addCommand(command);
+        console.log(out, 'ou');
+      }, this);
+    },
+
+    removeIncorrectAnnotations: function () {
+      var editor = this.editor;
+
+      this.editor.getSession().on("changeAnnotation", function(){
+        var annotations = editor.getSession().getAnnotations();
+
+        var newAnnotations = _.reduce(annotations, function (annotations, error) {
+          console.log(error);
+          if (!FauxtonAPI.isIgnorableError(error.raw)) {
+            annotations.push(error);
+          }
+          return annotations;
+        }, []);
+
+        if (annotations.length !== newAnnotations.length) {
+          editor.getSession().setAnnotations(newAnnotations);
+        }
+      });
+    },
+
+    setValue: function (data, lineNumber) {
+      lineNumber = lineNumber ? lineNumber : -1;
+      this.editor.setValue(data, lineNumber);
+    },
+
+    getValue: function () {
+      return this.editor.getValue();
+    },
+
+    getAnnotations: function () {
+      return this.editor.getSession().getAnnotations();
+    }
+
   });
 
   return Components;

@@ -708,6 +708,7 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, Codemirror, JSHint, re
     disableLoader: true,
     initialize: function (options) {
       this.database = options.database;
+      _.bindAll(this);
     },
     goback: function(){
       window.history.back();
@@ -849,6 +850,7 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, Codemirror, JSHint, re
       }
 
       json = JSON.parse(this.editor.getValue());
+
       this.model.set(json, {validate: true});
       if (this.model.validationError) {
         return false;
@@ -858,10 +860,11 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, Codemirror, JSHint, re
     },
 
     hasValidCode: function() {
-      return JSHINT(this.editor.getValue()) !== false;
+      var errors = this.editor.getAnnotations();
+      return errors.length === 0;
     },
 
-    runJSHint: function() {
+    /*runJSHint: function() {
       var json = this.editor.getValue();
       var output = JSHint(json);
 
@@ -884,7 +887,7 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, Codemirror, JSHint, re
           }, 0);
         }, this);
       }
-    },
+    },*/
 
     serialize: function() {
       return {
@@ -909,11 +912,24 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, Codemirror, JSHint, re
     },
 
     afterRender: function() {
+      var saveDoc = this.saveDoc;
+
+      this.editor = new Components.Editor({
+        editorId: "editor-container",
+        commands: [{
+          name: 'save',
+          bindKey: {win: 'Ctrl-S',  mac: 'Ctrl-S'},
+          exec: function(editor) {
+            saveDoc();
+          },
+          readOnly: true // false if this command should not apply in readOnly mode
+        }]
+      });
+      this.editor.render();
       this.model.on("sync", this.updateValues, this);
-      var that = this;
-      if ($('.CodeMirror').length > 0){
-        $('.CodeMirror').remove();
-      }
+
+      /*var that = this;
+
       this.editor = Codemirror.fromTextArea(this.$el.find("textarea.doc-code").get()[0], {
         mode: "application/json",
         json: false,
@@ -932,7 +948,7 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, Codemirror, JSHint, re
           "Ctrl-/": "undo"
         }
       });
-      setTimeout(function(){that.editor.setSize(null,$('#dashboard').outerHeight()-295);},200);
+      */
     }
   });
 
@@ -1334,7 +1350,8 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, Codemirror, JSHint, re
       }
     },
 
-    updateView: function(event, paramInfo) {
+    // not sure where this is used
+    /*updateView: function(event, paramInfo) {
       event.preventDefault();
 
       if (this.newView) { return alert('Please save this new view before querying it.'); }
@@ -1368,7 +1385,7 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, Codemirror, JSHint, re
       FauxtonAPI.navigate(fragment, {trigger: false});
 
       FauxtonAPI.triggerRouteEvent('updateAllDocs', {ddoc: this.ddocID, view: this.viewName});
-    },
+    },*/
 
     previewView: function(event, paramsInfo) {
       var that = this,
@@ -1433,20 +1450,20 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, Codemirror, JSHint, re
     hasValidCode: function() {
       return _.every(["mapEditor", "reduceEditor"], function(editorName) {
         var editor = this[editorName];
-        if (editorName == "reduceEditor" && ! this.isCustomReduceEnabled()) {
+        if (editorName === "reduceEditor" && ! this.isCustomReduceEnabled()) {
           return true;
-        } else if (JSHINT(editor.getValue()) !== false) {
-          return true;
-        } else {
-          // By default CouchDB view functions don't pass lint
-          return _.every(JSHINT.errors, function(error) {
-            return FauxtonAPI.isIgnorableError(error.raw);
-          });
-        }
+        } 
+        
+       var errors = editor.getAnnotations();
+       // By default CouchDB view functions don't pass lint
+       return _.every(errors, function(error) {
+         console.log('err', error);
+        return FauxtonAPI.isIgnorableError(error.raw);
+        },this);
       }, this);
     },
 
-    runJSHint: function(editorName) {
+    /*runJSHint: function(editorName) {
       var editor = this[editorName];
       var json = editor.getValue();
       var output = JSHint(json);
@@ -1472,7 +1489,7 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, Codemirror, JSHint, re
           }, 0);
         }, this);
       }
-    },
+    },*/
     toggleIndexNav: function (event) {
       var $index = this.$('#index'),
           $targetId = this.$(event.target).attr('id');
@@ -1543,7 +1560,7 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, Codemirror, JSHint, re
         mapFun.val(this.langTemplates[this.defaultLang].map);
         reduceFun.val(this.langTemplates[this.defaultLang].reduce);
       } else {
-        setTimeout(function(){this.$('#index').hide();}, 300);
+        this.$('#index').hide();
         this.$('#index-nav').parent().removeClass('active');
       }
 
@@ -1552,7 +1569,24 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, Codemirror, JSHint, re
       // When in grunt dev mode we load templates asynchronously
       // and this can cause a double render which then gives us two 
       // mapeditors
-      if (this.mapViewSet) { return;}
+
+      this.mapEditor = new Components.Editor({
+        editorId: "map-function",
+        mode: "javascript"
+      });
+      this.mapEditor.render();
+      // We can make this better
+      if (this.hasCustomReduce()) {
+        this.reduceEditor = new Components.Editor({
+          editorId: "reduce-function",
+          mode: "javascript"
+        });
+        this.reduceEditor.render();
+      } else {
+        $(".control-group.reduce-function").hide();
+      }
+
+      /*if (this.mapViewSet) { return;}
       this.mapViewSet = true;
 
       this.mapEditor = Codemirror.fromTextArea(mapFun.get()[0], {
@@ -1594,7 +1628,7 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, Codemirror, JSHint, re
       // So render it first, set the editor, then hide.
       if ( ! this.hasCustomReduce()) {
         $(".control-group.reduce-function").hide();
-      }
+      }*/
 
       if (this.params) {
         this.advancedOptions.updateFromParams(this.params);

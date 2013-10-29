@@ -31,7 +31,8 @@ require.config({
     jshint: "../assets/js/libs/jshint",
     spin: "../assets/js/libs/spin.min",
     d3: "../assets/js/libs/d3",
-    "nv.d3": "../assets/js/libs/nv.d3"
+    "nv.d3": "../assets/js/libs/nv.d3",
+    "ace":"../assets/js/libs/ace"
   },
 
   baseUrl: '/',
