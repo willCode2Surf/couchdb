@@ -1378,6 +1378,7 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, resizeColumns) {
       if ($targetId === 'index-nav') {
         if (this.newView) { return; }
         $index.toggle('slow');
+        this.showEditors();
       } else {
         $index.removeAttr('style');
       }
@@ -1446,37 +1447,37 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, resizeColumns) {
     },
 
     afterRender: function() {
-      var that = this, 
-          mapFun = this.$("#map-function"),
-          reduceFun = this.$("#reduce-function");
+      if (this.params) {
+        this.advancedOptions.updateFromParams(this.params);
+      }
 
+      this.designDocSelector.updateDesignDoc();
       if (this.newView) {
-        mapFun.val(this.langTemplates[this.defaultLang].map);
-        reduceFun.val(this.langTemplates[this.defaultLang].reduce);
+        this.showEditors();
       } else {
         this.$('#index').hide();
         this.$('#index-nav').parent().removeClass('active');
       }
+    },
 
-      this.designDocSelector.updateDesignDoc();
-
+    showEditors: function () {
       this.mapEditor = new Components.Editor({
         editorId: "map-function",
         mode: "javascript",
         couchJSHINT: true
       });
       this.mapEditor.render();
-      // We can make this better
+
       if (this.hasCustomReduce()) {
         this.createReduceEditor();
       } else {
         $(".control-group.reduce-function").hide();
       }
 
-      if (this.params) {
-        this.advancedOptions.updateFromParams(this.params);
-      }
-
+      if (this.newView) {
+        this.mapEditor.setValue(this.langTemplates[this.defaultLang].map);
+        this.reduceEditor.setValue(this.langTemplates[this.defaultLang].reduce);
+      } 
     }
   });
 
