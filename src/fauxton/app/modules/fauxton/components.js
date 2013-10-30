@@ -181,22 +181,26 @@ function(app, FauxtonAPI, ace) {
       this.editorId = options.editorId;
       this.mode = options.mode || "json";
       this.commands = options.commands;
+      this.theme = options.theme || 'crimson_editor';
+      this.couchJSHINT = options.couchJSHINT;
     },
 
     afterRender: function () {
       this.editor = ace.edit(this.editorId);
-      this.editor.setTheme("ace/theme/crimson_editor");
+      this.editor.setTheme("ace/theme/" + this.theme);
       this.editor.getSession().setMode("ace/mode/" + this.mode);
       this.editor.setShowPrintMargin(false);
       this.editor.gotoLine(2);
       this.addCommands();
-      this.removeIncorrectAnnotations();
+
+      if (this.couchJSHINT) {
+        this.removeIncorrectAnnotations();
+      }
     },
 
     addCommands: function () {
       _.each(this.commands, function (command) {
-        var out = this.editor.commands.addCommand(command);
-        console.log(out, 'ou');
+        this.editor.commands.addCommand(command);
       }, this);
     },
 
@@ -207,7 +211,6 @@ function(app, FauxtonAPI, ace) {
         var annotations = editor.getSession().getAnnotations();
 
         var newAnnotations = _.reduce(annotations, function (annotations, error) {
-          console.log(error);
           if (!FauxtonAPI.isIgnorableError(error.raw)) {
             annotations.push(error);
           }
@@ -231,6 +234,14 @@ function(app, FauxtonAPI, ace) {
 
     getAnnotations: function () {
       return this.editor.getSession().getAnnotations();
+    },
+
+    hadValidCode: function () {
+     var errors = this.getAnnotations();
+     // By default CouchDB view functions don't pass lint
+     return _.every(errors, function(error) {
+      return FauxtonAPI.isIgnorableError(error.raw);
+      },this);
     }
 
   });

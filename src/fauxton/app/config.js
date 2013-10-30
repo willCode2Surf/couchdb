@@ -27,7 +27,6 @@ require.config({
     backbone: "../assets/js/libs/backbone",
     "backbone.layoutmanger": "../assets/js/plugins/backbone.layoutmanager",
     bootstrap: "../assets/js/libs/bootstrap",
-    codemirror: "../assets/js/libs/codemirror",
     jshint: "../assets/js/libs/jshint",
     spin: "../assets/js/libs/spin.min",
     d3: "../assets/js/libs/d3",
@@ -39,7 +38,8 @@ require.config({
 
   map: {
     "*": {
-      'underscore': 'lodash'
+      'underscore': 'lodash',
+      //'./lib/dom':'ace/lib/dom'
     }
 
   },
@@ -56,17 +56,10 @@ require.config({
       exports: "Bootstrap"
     },
 
-    codemirror: {
-      deps: ["jquery"],
-      exports: "CodeMirror"
-    },
-
     jshint: {
       deps: ["jquery"],
       exports: "JSHINT"
     },
-
-    "plugins/codemirror-javascript": ["codemirror"],
 
     "plugins/prettify": [],
 
