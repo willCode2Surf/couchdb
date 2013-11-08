@@ -196,7 +196,7 @@
   :code 409: Document with the specified ID already exists or specified
     revision is not latest for target document
 
-  **Request**:
+  **Request (create new document)**:
 
   .. code-block:: http
 
@@ -216,7 +216,7 @@
         "name": "Spaghetti with meatballs"
     }
 
-  **Response**:
+  **Response (create new document)**:
 
   .. code-block:: http
 
@@ -235,6 +235,68 @@
         "rev": "1-917fa2381192822767f010b95b45325b"
     }
 
+  **Request (update existing document)**:
+
+  .. code-block:: http
+
+    PUT /recipes/SpaghettiWithMeatballs?rev=1-917fa2381192822767f010b95b45325b HTTP/1.1
+    Accept: application/json
+    Content-Length: 196
+    Content-Type: application/json
+    Host: localhost:5984
+
+    {
+        "description": "An Italian-American dish that usually consists of spaghetti, tomato sauce and meatballs.",
+        "ingredients": [
+            "spaghetti",
+            "tomato sauce",
+            "meatballs",
+            "mozarella"
+        ],
+        "name": "Spaghetti with meatballs"
+    }
+
+  Alternatively, instead of the ``rev`` query parameter you may use the
+  :header:`If-Match` header:
+
+  .. code-block:: http
+
+    PUT /recipes/SpaghettiWithMeatballs HTTP/1.1
+    Accept: application/json
+    Content-Length: 196
+    Content-Type: application/json
+    If-Match: 1-917fa2381192822767f010b95b45325b
+    Host: localhost:5984
+
+    {
+        "description": "An Italian-American dish that usually consists of spaghetti, tomato sauce and meatballs.",
+        "ingredients": [
+            "spaghetti",
+            "tomato sauce",
+            "meatballs",
+            "mozarella"
+        ],
+        "name": "Spaghetti with meatballs"
+    }
+
+  **Response (update existing document)**:
+
+  .. code-block:: http
+
+    HTTP/1.1 201 Created
+    Cache-Control: must-revalidate
+    Content-Length: 85
+    Content-Type: application/json
+    Date: Wed, 14 Aug 2013 20:34:23 GMT
+    ETag: 2-faf1e73a94ff04ebede600f173ca0412
+    Location: http://localhost:5984/recipes/SpaghettiWithMeatballs
+    Server: CouchDB (Erlang/OTP)
+
+    {
+        "id": "SpaghettiWithMeatballs",
+        "ok": true,
+        "rev": "2-faf1e73a94ff04ebede600f173ca0412"
+    }
 
 .. http:delete:: /{db}/{docid}
 
@@ -279,7 +341,7 @@
     Accept: application/json
     Host: localhost:5984
 
-  Alternatively, instead of ``rev`` query parameter you may use
+  Alternatively, instead of the ``rev`` query parameter you may use the
   :header:`If-Match` header:
 
   .. code-block:: http
