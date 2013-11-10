@@ -235,68 +235,8 @@
         "rev": "1-917fa2381192822767f010b95b45325b"
     }
 
-  **Request (update existing document)**:
-
-  .. code-block:: http
-
-    PUT /recipes/SpaghettiWithMeatballs?rev=1-917fa2381192822767f010b95b45325b HTTP/1.1
-    Accept: application/json
-    Content-Length: 196
-    Content-Type: application/json
-    Host: localhost:5984
-
-    {
-        "description": "An Italian-American dish that usually consists of spaghetti, tomato sauce and meatballs.",
-        "ingredients": [
-            "spaghetti",
-            "tomato sauce",
-            "meatballs",
-            "mozarella"
-        ],
-        "name": "Spaghetti with meatballs"
-    }
-
-  Alternatively, instead of the ``rev`` query parameter you may use the
-  :header:`If-Match` header:
-
-  .. code-block:: http
-
-    PUT /recipes/SpaghettiWithMeatballs HTTP/1.1
-    Accept: application/json
-    Content-Length: 196
-    Content-Type: application/json
-    If-Match: 1-917fa2381192822767f010b95b45325b
-    Host: localhost:5984
-
-    {
-        "description": "An Italian-American dish that usually consists of spaghetti, tomato sauce and meatballs.",
-        "ingredients": [
-            "spaghetti",
-            "tomato sauce",
-            "meatballs",
-            "mozarella"
-        ],
-        "name": "Spaghetti with meatballs"
-    }
-
-  **Response (update existing document)**:
-
-  .. code-block:: http
-
-    HTTP/1.1 201 Created
-    Cache-Control: must-revalidate
-    Content-Length: 85
-    Content-Type: application/json
-    Date: Wed, 14 Aug 2013 20:34:23 GMT
-    ETag: 2-faf1e73a94ff04ebede600f173ca0412
-    Location: http://localhost:5984/recipes/SpaghettiWithMeatballs
-    Server: CouchDB (Erlang/OTP)
-
-    {
-        "id": "SpaghettiWithMeatballs",
-        "ok": true,
-        "rev": "2-faf1e73a94ff04ebede600f173ca0412"
-    }
+  .. note::
+    For updating an existing document please see :ref:`Updating an Existing Document` below.
 
 .. http:delete:: /{db}/{docid}
 
@@ -1095,6 +1035,7 @@ with :get:`/{db}/{docid}` request:
       "_rev": "2-056f5f44046ecafc08a2bc2b9c229e20"
   }
 
+.. _Updating an Existing Document:
 
 Updating an Existing Document
 -----------------------------
