@@ -43,7 +43,8 @@ function($, _, Backbone, Helpers, Mixins) {
     // move this to here otherwise every once in a while,
     // the footer fails to configure as the url for it is not configured.
     // Having the host declared here fixes it
-    host: window.location.protocol + "//" + window.location.host,
+    host: "../..",//window.location.protocol + "//" + window.location.host,
+    urlPrefix: '../..'
   };
 
   // Localize or create a new JavaScript Template object.

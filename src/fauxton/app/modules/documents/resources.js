@@ -179,7 +179,7 @@ function(app, FauxtonAPI) {
     copy: function (copyId) {
       return $.ajax({
         type: 'COPY',
-        url: '/' + this.database.id + '/' + this.id,
+        url: app.host + '/' + this.database.id + '/' + this.id,
         headers: {Destination: copyId}
       });
     },

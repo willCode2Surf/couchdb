@@ -55,6 +55,24 @@ function(app, Fauxton) {
       this.hasRendered = false;
     }
   });
+  
+  /*Backbone.ajax = function() {
+    console.log('ajax', arguments);
+    var url = arguments[0].url;
+
+    var old = arguments[0].url,
+        newurl = app.urlPrefix + arguments[0].url;
+
+    if (!url.match(/http/) || !url.match('../..')) {
+      arguments[0].url = app.urlPrefix + arguments[0].url;
+      console.log('url', old, newurl);
+    } else {
+      console.log("didn't change", old);
+    }
+
+    return Backbone.$.ajax.apply(Backbone.$, arguments);
+  };*/
+
 
   FauxtonAPI.navigate = function(url, _opts) {
     var options = _.extend({trigger: true}, _opts );
@@ -124,7 +142,7 @@ function(app, Fauxton) {
   });
 
   FauxtonAPI.Session = Backbone.Model.extend({
-    url: '/_session',
+    url: app.host + '/_session',
 
     user: function () {
       var userCtx = this.get('userCtx');
