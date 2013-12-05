@@ -715,7 +715,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
       _.bindAll(this);
     },
     goback: function(){
-      window.history.back();
+      FauxtonAPI.navigate(this.database.url("index") + "?limit=100");
     },
     destroy: function(event) {
       if (this.model.isNewDoc()) {
@@ -906,6 +906,10 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
       });
       this.editor.render();
       this.model.on("sync", this.updateValues, this);
+    },
+
+    cleanup: function () {
+      this.editor.remove();
     }
   });
 

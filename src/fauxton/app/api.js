@@ -61,6 +61,9 @@ function(app, Fauxton) {
     app.router.navigate(url,options);
   };
 
+  FauxtonAPI.beforeUnload = app.router.beforeUnload;
+  FauxtonAPI.removeBeforeUnload = app.router.removeBeforeUnload;
+
   FauxtonAPI.addHeaderLink = function(link) {
     app.masterLayout.navBar.addLink(link);
   };
