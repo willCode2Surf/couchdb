@@ -1625,7 +1625,9 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, resizeColumns) {
     },
 
     serialize: function() {
-      var docLinks = FauxtonAPI.getExtensions('docLinks');
+      var docLinks = FauxtonAPI.getExtensions('docLinks'),
+          addLinks = FauxtonAPI.getExtensions('sidebar:links'),
+          extensionList = FauxtonAPI.getExtensions('sidebar:list');
       return {
         changes_url: '#' + this.database.url('changes'),
         permissions_url: '#' + this.database.url('app') + '/permissions',
@@ -1633,7 +1635,9 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, resizeColumns) {
         database: this.collection.database,
         database_url: '#' + this.database.url('app'), 
         docLinks: docLinks,
-        showNewView: this.showNewView
+        showNewView: this.showNewView,
+        addLinks: addLinks,
+        extensionList: extensionList > 0
       };
     },
 
@@ -1650,6 +1654,15 @@ function(app, FauxtonAPI, Components, Documents, pouchdb, resizeColumns) {
     },
 
     beforeRender: function(manage) {
+
+      var sidebarListViews = FauxtonAPI.getExtensions('sidebar:list');
+      _.each(sidebarListViews, function (view) {
+        var extension = this.insertView('#extension-navs', view);
+        extension.update(this.database, this.collection, this.viewName);
+        extension.render();
+      }, this);
+
+
       this.collection.each(function(design) {
         if (design.has('doc')){
           var ddoc = design.id.split('/')[1];
