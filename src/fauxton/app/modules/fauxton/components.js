@@ -228,7 +228,6 @@ function(app, FauxtonAPI, ace) {
       this.editor.getSession().on('change', function () {
         that.setHeightToLineCount();
         that.edited = true;
-        console.log('edited');
       });
 
       $(window).on('beforeunload.editor', function() {
@@ -237,16 +236,16 @@ function(app, FauxtonAPI, ace) {
         }
       });
 
-      api.beforeUnload("editor", function (deferred) {
+      FauxtonAPI.beforeUnload("editor", function (deferred) {
         if (that.edited) {
-          return 'Your changes have not been saved. Click cancel to return to the document.');
+          return 'Your changes have not been saved. Click cancel to return to the document.';
         }
       });
     },
 
     cleanup: function () {
       $(window).off('beforeunload.editor');
-      api.removeBeforeunload("editor");
+      FauxtonAPI.removeBeforeUnload("editor");
     },
 
     setHeightToLineCount: function () {
@@ -281,6 +280,10 @@ function(app, FauxtonAPI, ace) {
           editor.getSession().setAnnotations(newAnnotations);
         }
       });
+    },
+
+    editSaved: function () {
+      this.edited = false;
     },
 
     setValue: function (data, lineNumber) {

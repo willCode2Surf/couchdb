@@ -814,6 +814,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
     saveDoc: function(event) {
       var json, notification, 
       that = this,
+      editor = this.editor,
       validDoc = this.getDocFromEditor();
 
       if (validDoc) {
@@ -822,6 +823,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
         notification = FauxtonAPI.addNotification({msg: "Saving document."});
 
         this.model.save().then(function () {
+          editor.editSaved();
           FauxtonAPI.navigate('/database/' + that.database.id + '/' + that.model.id);
         }).fail(function(xhr) {
           var responseText = JSON.parse(xhr.responseText).reason;

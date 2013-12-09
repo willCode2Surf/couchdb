@@ -53,11 +53,26 @@ function(req, app, Initialize, FauxtonAPI, Fauxton, Layout, Databases, Documents
     routes: {},
 
     beforeUnload: function (name, fn) {
-      beforeUnload[name] = fn;
+      beforeUnloads[name] = fn;
+    },
+
+    removeBeforeUnload: function (name) {
+      delete beforeUnloads[name];
     },
 
     navigate: function (fragment, trigger) {
-      Backbone.Router.prototype.navigate(fragment, trigger);
+      var continueNav  = true,
+          msg = _.find(_.map(beforeUnloads, function (fn) { return fn(); }), function (beforeReturn) {
+            if (beforeReturn) { return true; }
+          });
+
+      if (msg) {
+        continueNav = window.confirm(msg);
+      }
+
+      if (continueNav) {
+        Backbone.Router.prototype.navigate(fragment, trigger);
+      }
     },
 
     addModuleRouteObject: function(RouteObject) {
