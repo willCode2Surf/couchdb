@@ -63,10 +63,11 @@ function(app, Fauxton) {
 
   FauxtonAPI.beforeUnload = function () {
     app.router.beforeUnload.apply(app.router, arguments);
-  }
+  };
+
   FauxtonAPI.removeBeforeUnload = function () {
     app.router.removeBeforeUnload.apply(app.router, arguments);
-  }
+  };
 
   FauxtonAPI.addHeaderLink = function(link) {
     app.masterLayout.navBar.addLink(link);

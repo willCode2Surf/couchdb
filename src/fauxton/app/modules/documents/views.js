@@ -1566,6 +1566,11 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
         //this.reduceEditor.setValue(this.langTemplates[this.defaultLang].reduce);
       } 
 
+    },
+
+    cleanup: function () {
+      this.mapEditor && this.mapEditor.remove();
+      this.reduceEditor && this.reduceEditor.remove();
     }
   });
 
