@@ -66,6 +66,9 @@ handle_file_req(Req, _) ->
 handle_utils_dir_req(#httpd{method='GET'}=Req, DocumentRoot) ->
     "/" ++ UrlPath = couch_httpd:path(Req),
     case couch_httpd:partition(UrlPath) of
+    {_ActionKey, "/", "fauxton"} ->
+        % GET /_utils/fauxton
+        handle_urls_without_slash(Req);
     {_ActionKey, "/", RelativePath} ->
         % GET /_utils/path or GET /_utils/
         CachingHeaders =
@@ -73,8 +76,7 @@ handle_utils_dir_req(#httpd{method='GET'}=Req, DocumentRoot) ->
         couch_httpd:serve_file(Req, RelativePath, DocumentRoot, CachingHeaders);
     {_ActionKey, "", _RelativePath} ->
         % GET /_utils
-        RedirectPath = couch_httpd:path(Req) ++ "/",
-        couch_httpd:send_redirect(Req, RedirectPath)
+        handle_urls_without_slash(Req)
     end;
 handle_utils_dir_req(Req, _) ->
     send_method_not_allowed(Req, "GET,HEAD").
@@ -84,6 +86,11 @@ handle_all_dbs_req(#httpd{method='GET'}=Req) ->
     send_json(Req, DbNames);
 handle_all_dbs_req(Req) ->
     send_method_not_allowed(Req, "GET,HEAD").
+
+
+handle_urls_without_slash(Req) ->
+    RedirectPath = couch_httpd:path(Req) ++ "/",
+    couch_httpd:send_redirect(Req, RedirectPath).
 
 
 handle_task_status_req(#httpd{method='GET'}=Req) ->
