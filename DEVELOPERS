@@ -112,6 +112,12 @@ Download MaxTeX from here:
 
 Follow the instructions to get a working LaTeX install on your system.
 
+Add a line like this to your `.bash_profile` file:
+
+    PATH=/usr/local/texlive/2013/bin/x86_64-darwin:$PATH
+
+Modify this to match your texlive instalation.
+
 Windows
 ~~~~~~~
 
@@ -144,6 +150,9 @@ cd src/fauxton
 
 Install all dependencies
 npm install
+
+# this needs to be run locally before the build, or you need this stuff
+globally
 
 (Optional) To avoid a npm global install
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
