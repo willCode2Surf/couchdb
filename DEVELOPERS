@@ -164,7 +164,9 @@ Dev Server
 Using the dev server is the easiest way to use fauxton, specially when
 developing for it.
 
-grunt dev
+bin/grunt dev
+
+You can then access Fauxton via http://localhost:8000/
 
 Prepare Fauxton Release
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -173,7 +175,7 @@ Follow the "Fauxton Setup" section then:
 
 ./bin/grunt couchdb
 
-This will install the latest version of Fauxton into `/share/www/fauxton`
+This will install the latest version of Fauxton into `/share/www/fauxton/build`
 
 Running Tests
 ~~~~~~~~~~~~~
