@@ -10,23 +10,3 @@
 ## License for the specific language governing permissions and limitations under
 ## the License.
 
-nobase_dist_localdata_DATA = \
-    www/fauxton/css/index.css \
-    www/fauxton/img/couchdb-site.png \
-    www/fauxton/img/couchdblogo.png \
-    www/fauxton/img/fontawesome-webfont.eot \
-    www/fauxton/img/fontawesome-webfont.svg \
-    www/fauxton/img/fontawesome-webfont.ttf \
-    www/fauxton/img/fontawesome-webfont.woff \
-    www/fauxton/img/FontAwesome.otf \
-    www/fauxton/img/fontcustom_fauxton.eot \
-    www/fauxton/img/fontcustom_fauxton.svg \
-    www/fauxton/img/fontcustom_fauxton.ttf \
-    www/fauxton/img/fontcustom_fauxton.woff \
-    www/fauxton/img/glyphicons-halflings-white.png \
-    www/fauxton/img/glyphicons-halflings.png \
-    www/fauxton/img/linen.png \
-    www/fauxton/img/loader.gif \
-    www/fauxton/img/minilogo.png \
-    www/fauxton/index.html \
-    www/fauxton/js/require.js \
