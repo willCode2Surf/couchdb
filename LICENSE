@@ -369,7 +369,7 @@ For the share/www/script/jquery-ui-* components:
   WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 For the share/www/script/jquery.form.js component:
-For the src/fauxton/assets/js/plugins/jquery.form.js component:
+For the share/www/fauxton/src/assets/js/plugins/jquery.form.js component:
 
   http://malsup.com/jquery/form/
 
@@ -605,7 +605,7 @@ For the share/server/coffee-script.js file
   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
   OTHER DEALINGS IN THE SOFTWARE.
 
-For src/fauxton/apps/modules/pouchdb
+For share/www/fauxton/src/apps/modules/pouchdb
 
   Copyright (c) 2012 Dale Harvey et al
 
@@ -621,7 +621,7 @@ For src/fauxton/apps/modules/pouchdb
   License for the specific language governing permissions and limitations under
   the License.
 
-For src/fauxton/assets/js/libs/almond.js
+For share/www/fauxton/src/assets/js/libs/almond.js
 
 	Copyright (c) 2010-2011, The Dojo Foundation
 	All rights reserved.
@@ -649,7 +649,7 @@ For src/fauxton/assets/js/libs/almond.js
 	OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 	OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-For src/fauxton/assets/js/libs/backbone.js
+For share/www/fauxton/src/assets/js/libs/backbone.js
 
 	Copyright (c) 2010-2013 Jeremy Ashkenas, DocumentCloud
 
@@ -674,20 +674,14 @@ For src/fauxton/assets/js/libs/backbone.js
 	FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 	OTHER DEALINGS IN THE SOFTWARE.
 
-For src/fauxton/assets/js/libs/bootstrap.js
-And for src/fauxton/assets/less/bootstrap
+For share/www/fauxton/src/assets/js/libs/bootstrap.js
+And share/www/fauxton/src/assets/less/bootstrap
 
                                  Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
 
-For src/fauxton/assets/less/bootstrap
-
-                                 Apache License
-                           Version 2.0, January 2004
-                        http://www.apache.org/licenses/
-
-For src/fauxton/assets/js/libs/d3.js
+For share/www/fauxton/src/assets/js/libs/d3.js
 
 	Copyright (c) 2012, Michael Bostock
 	All rights reserved.
@@ -716,7 +710,7 @@ For src/fauxton/assets/js/libs/d3.js
 	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 	EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-For src/fauxton/assets/js/libs/lodash.js
+For share/www/fauxton/src/assets/js/libs/lodash.js
 
 	Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
 	Based on Underscore.js 1.4.3, copyright 2009-2013 Jeremy Ashkenas,
@@ -741,7 +735,7 @@ For src/fauxton/assets/js/libs/lodash.js
 	OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 	WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-For src/fauxton/assets/js/libs/nv.d3.js
+For share/www/fauxton/src/assets/js/libs/nv.d3.js
 
 	Copyright (c) 2011, 2012 [Novus Partners, Inc.][novus]
 
@@ -759,7 +753,7 @@ For src/fauxton/assets/js/libs/nv.d3.js
 
 	[novus]: https://www.novus.com/
 
-For src/fauxton/assets/js/libs/require.js
+For share/www/fauxton/src/assets/js/libs/require.js
 
 	Copyright (c) 2010-2011, The Dojo Foundation
 	All rights reserved.
@@ -787,7 +781,7 @@ For src/fauxton/assets/js/libs/require.js
 	OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 	OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-For src/fauxton/assets/js/plugins/backbone.layoutmanager.js
+For share/www/fauxton/src/assets/js/plugins/backbone.layoutmanager.js
 
 	Copyright (c) 2013 Tim Branyen
 
@@ -809,7 +803,7 @@ For src/fauxton/assets/js/plugins/backbone.layoutmanager.js
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 	SOFTWARE.
 
-For src/fauxton/assets/js/plugins/prettify.js
+For share/www/fauxton/src/assets/js/plugins/prettify.js
 
                                  Apache License
                            Version 2.0, January 2004
@@ -824,7 +818,7 @@ For the src/couch_dbupdates component
 If not otherwise noted, the extensions in this package are licensed
 under the following license.
 
-For src/fauxton/test/mocha/mocha.js and src/fauxton/test/mocha/mocha.js
+For share/www/fauxton/src/test/mocha/mocha.js
 
   Copyright (c) 2011-2013 TJ Holowaychuk <tj@vision-media.ca>
 
@@ -847,7 +841,7 @@ For src/fauxton/test/mocha/mocha.js and src/fauxton/test/mocha/mocha.js
   TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
   SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-For src/fauxton/test/mocha/chai.js
+For share/www/fauxton/src/test/mocha/chai.js
 
   Copyright (c) 2011-2013 Jake Luer jake@alogicalparadox.com
 
@@ -870,7 +864,7 @@ For src/fauxton/test/mocha/chai.js
   TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
   SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-for src/fauxton/test/mocha/sinon-chai.js
+for share/www/fauxton/src/test/mocha/sinon-chai.js
 
   DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                     Version 2, December 2004
@@ -886,7 +880,7 @@ for src/fauxton/test/mocha/sinon-chai.js
 
   0. You just DO WHAT THE FUCK YOU WANT TO.
 
-for src/fauxton/js/libs/spin.js
+for share/www/fauxton/src/js/libs/spin.js
   The MIT License
 
   Copyright (c) 2011 Felix Gnass [fgnass at neteye dot de]
@@ -910,7 +904,7 @@ for src/fauxton/js/libs/spin.js
   THE SOFTWARE.
 
 
-for src/fauxton/assets/img/font-awesome.*
+for share/www/fauxton/src/assets/img/font-awesome.*
 
 SIL OPEN FONT LICENSE
 
@@ -1000,7 +994,7 @@ FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
 
 
-for src/fauxton/assets/less/bootstrap/font-awesome/*
+for share/www/fauxton/src/assets/less/bootstrap/font-awesome/*
 
 The MIT License (MIT)
 
@@ -1052,7 +1046,7 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-for src/fauxton/assets/js/lib/ace/*
+for share/www/fauxton/src/assets/js/lib/ace/*
 
 Copyright (c) 2010, Ajax.org B.V.
 All rights reserved.
