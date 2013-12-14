@@ -59,6 +59,7 @@ share/doc/build/html
 share/doc/build/latex
 share/doc/build/texinfo
 share/www/fauxton/build
+share/www/fauxton/src/node_modules
 share/server/main-coffee.js
 share/server/main.js
 src/couch_mrview/ebin/
