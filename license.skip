@@ -97,9 +97,10 @@
 ^share/www/fauxton/src/assets/less/bootstrap/tests/buttons.html
 ^share/www/fauxton/src/assets/less/bootstrap/tests/css-tests.css
 ^share/www/fauxton/src/assets/lib/ace/.*
+^share/www/fauxton/src/dist
 ^share/www/fauxton/src/extensions.md
 ^share/www/fauxton/src/favicon.ico
-^share/www/fauxton/src/node_modules/*
+^share/www/fauxton/src/node_modules/.*
 ^share/www/fauxton/src/package.json
 ^share/www/fauxton/src/settings.json.*
 ^share/www/fauxton/src/tasks/addon/rename.json
@@ -111,6 +112,7 @@
 ^share/www/fauxton/src/test/test.config.underscore
 ^share/www/fauxton/src/writing_addons.md
 ^share/www/fauxton/build/img/.*
+^share/www/fauxton/build/js/ace/.*
 ^src/Makefile
 ^src/Makefile.in
 ^src/couch_index/Makefile
