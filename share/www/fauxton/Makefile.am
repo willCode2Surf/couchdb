@@ -10,9 +10,9 @@
 ## License for the specific language governing permissions and limitations under
 ## the License.
 
-EXTRA_DIST = $(FAUXTON_FILES)
+MAKE_SAFE = $(MAKE)
 
-FAUXTON_FILES = \
+fauxton_src_files = \
     src/app/addons/activetasks/assets/less/activetasks.less \
     src/app/addons/activetasks/base.js \
     src/app/addons/activetasks/resources.js \
@@ -139,151 +139,231 @@ FAUXTON_FILES = \
     src/app/templates/layouts/with_sidebar.html \
     src/app/templates/layouts/with_tabs.html \
     src/app/templates/layouts/with_tabs_sidebar.html \
-    fauxton/assets/css/nv.d3.css \
-    fauxton/assets/img/couchdb-site.png \
-    fauxton/assets/img/couchdblogo.png \
-    fauxton/assets/img/fontawesome-webfont.eot \
-    fauxton/assets/img/fontawesome-webfont.svg \
-    fauxton/assets/img/fontawesome-webfont.ttf \
-    fauxton/assets/img/fontawesome-webfont.woff \
-    fauxton/assets/img/FontAwesome.otf \
-    fauxton/assets/img/fontcustom_fauxton.eot \
-    fauxton/assets/img/fontcustom_fauxton.svg \
-    fauxton/assets/img/fontcustom_fauxton.ttf \
-    fauxton/assets/img/fontcustom_fauxton.woff \
-    fauxton/assets/img/glyphicons-halflings-white.png \
-    fauxton/assets/img/glyphicons-halflings.png \
-    fauxton/assets/img/linen.png \
-    fauxton/assets/img/loader.gif \
-    fauxton/assets/img/minilogo.png \
-    fauxton/assets/index.underscore \
-    fauxton/assets/js/libs/ace/ace.js \
-    fauxton/assets/js/libs/ace/ext-static_highlight.js \
-    fauxton/assets/js/libs/ace/ext-chromevox.js \
-    fauxton/assets/js/libs/ace/ext-statusbar.js \
-    fauxton/assets/js/libs/ace/ext-elastic_tabstops_lite.js \
-    fauxton/assets/js/libs/ace/ext-textarea.js \
-    fauxton/assets/js/libs/ace/ext-emmet.js \
-    fauxton/assets/js/libs/ace/ext-themelist.js \
-    fauxton/assets/js/libs/ace/ext-keybinding_menu.js \
-    fauxton/assets/js/libs/ace/ext-whitespace.js \
-    fauxton/assets/js/libs/ace/ext-language_tools.js \
-    fauxton/assets/js/libs/ace/mode-javascript.js \
-    fauxton/assets/js/libs/ace/ext-modelist.js \
-    fauxton/assets/js/libs/ace/mode-json.js \
-    fauxton/assets/js/libs/ace/ext-old_ie.js \
-    fauxton/assets/js/libs/ace/mode-jsoniq.js \
-    fauxton/assets/js/libs/ace/ext-options.js \
-    fauxton/assets/js/libs/ace/ext-searchbox.js \
-    fauxton/assets/js/libs/ace/theme-crimson_editor.js \
-    fauxton/assets/js/libs/ace/ext-settings_menu.js \
-    fauxton/assets/js/libs/ace/worker-javascript.js \
-    fauxton/assets/js/libs/ace/ext-spellcheck.js \
-    fauxton/assets/js/libs/ace/worker-json.js \
-    fauxton/assets/js/libs/ace/ext-split.js \
-    fauxton/assets/js/libs/ace/snippets/javascript.js \
-    fauxton/assets/js/libs/ace/snippets/json.js \
-    fauxton/assets/js/libs/ace/snippets/jsoniq.js \
-    fauxton/assets/js/libs/almond.js \
-    fauxton/assets/js/libs/backbone.js \
-    fauxton/assets/js/libs/bootstrap.js \
-    fauxton/assets/js/libs/d3.js \
-    fauxton/assets/js/libs/jquery.js \
-    fauxton/assets/js/libs/lodash.js \
-    fauxton/assets/js/libs/nv.d3.js \
-    fauxton/assets/js/libs/require.js \
-    fauxton/assets/js/libs/spin.min.js \
-    fauxton/assets/js/plugins/backbone.layoutmanager.js \
-    fauxton/assets/js/plugins/jquery.form.js \
-    fauxton/assets/js/plugins/prettify.js \
-    fauxton/assets/less/bootstrap/accordion.less \
-    fauxton/assets/less/bootstrap/alerts.less \
-    fauxton/assets/less/bootstrap/bootstrap.less \
-    fauxton/assets/less/bootstrap/breadcrumbs.less \
-    fauxton/assets/less/bootstrap/button-groups.less \
-    fauxton/assets/less/bootstrap/buttons.less \
-    fauxton/assets/less/bootstrap/carousel.less \
-    fauxton/assets/less/bootstrap/close.less \
-    fauxton/assets/less/bootstrap/code.less \
-    fauxton/assets/less/bootstrap/component-animations.less \
-    fauxton/assets/less/bootstrap/dropdowns.less \
-    fauxton/assets/less/bootstrap/font-awesome/bootstrap.less \
-    fauxton/assets/less/bootstrap/font-awesome/core.less \
-    fauxton/assets/less/bootstrap/font-awesome/extras.less \
-    fauxton/assets/less/bootstrap/font-awesome/font-awesome-ie7.less \
-    fauxton/assets/less/bootstrap/font-awesome/font-awesome.less \
-    fauxton/assets/less/bootstrap/font-awesome/icons.less \
-    fauxton/assets/less/bootstrap/font-awesome/mixins.less \
-    fauxton/assets/less/bootstrap/font-awesome/path.less \
-    fauxton/assets/less/bootstrap/font-awesome/variables.less \
-    fauxton/assets/less/bootstrap/forms.less \
-    fauxton/assets/less/bootstrap/grid.less \
-    fauxton/assets/less/bootstrap/hero-unit.less \
-    fauxton/assets/less/bootstrap/labels-badges.less \
-    fauxton/assets/less/bootstrap/layouts.less \
-    fauxton/assets/less/bootstrap/media.less \
-    fauxton/assets/less/bootstrap/mixins.less \
-    fauxton/assets/less/bootstrap/modals.less \
-    fauxton/assets/less/bootstrap/navbar.less \
-    fauxton/assets/less/bootstrap/navs.less \
-    fauxton/assets/less/bootstrap/pager.less \
-    fauxton/assets/less/bootstrap/pagination.less \
-    fauxton/assets/less/bootstrap/popovers.less \
-    fauxton/assets/less/bootstrap/progress-bars.less \
-    fauxton/assets/less/bootstrap/reset.less \
-    fauxton/assets/less/bootstrap/responsive-1200px-min.less \
-    fauxton/assets/less/bootstrap/responsive-767px-max.less \
-    fauxton/assets/less/bootstrap/responsive-768px-979px.less \
-    fauxton/assets/less/bootstrap/responsive-navbar.less \
-    fauxton/assets/less/bootstrap/responsive-utilities.less \
-    fauxton/assets/less/bootstrap/responsive.less \
-    fauxton/assets/less/bootstrap/scaffolding.less \
-    fauxton/assets/less/bootstrap/sprites.less \
-    fauxton/assets/less/bootstrap/tables.less \
-    fauxton/assets/less/bootstrap/tests/buttons.html \
-    fauxton/assets/less/bootstrap/tests/css-tests.css \
-    fauxton/assets/less/bootstrap/thumbnails.less \
-    fauxton/assets/less/bootstrap/tooltip.less \
-    fauxton/assets/less/bootstrap/type.less \
-    fauxton/assets/less/bootstrap/utilities.less \
-    fauxton/assets/less/bootstrap/variables.less \
-    fauxton/assets/less/bootstrap/wells.less \
-    fauxton/assets/less/config.less \
-    fauxton/assets/less/couchdb.less \
-    fauxton/assets/less/database.less \
-    fauxton/assets/less/fauxton.less \
-    fauxton/assets/less/icons.less \
-    fauxton/assets/less/logs.less \
-    fauxton/assets/less/prettyprint.less \
-    fauxton/assets/less/variables.less \
-    fauxton/bin/grunt \
-    fauxton/couchapp.js \
-    fauxton/favicon.ico \
-    fauxton/Gruntfile.js \
-    fauxton/index.html \
-    fauxton/package.json \
-    fauxton/readme.md \
-    fauxton/settings.json.default \
-    fauxton/settings.json.sample_external \
-    fauxton/tasks/addon/rename.json \
-    fauxton/tasks/addon/root/base.js.underscore \
-    fauxton/tasks/addon/root/resources.js.underscore \
-    fauxton/tasks/addon/root/routes.js.underscore \
-    fauxton/tasks/addon/template.js \
-    fauxton/tasks/couchserver.js \
-    fauxton/tasks/fauxton.js \
-    fauxton/tasks/helper.js \
-    fauxton/test/core/layoutSpec.js \
-    fauxton/test/core/navbarSpec.js \
-    fauxton/test/core/paginateSpec.js \
-    fauxton/test/core/routeObjectSpec.js \
-    fauxton/test/mocha/chai.js \
-    fauxton/test/mocha/mocha.css \
-    fauxton/test/mocha/mocha.js \
-    fauxton/test/mocha/sinon-chai.js \
-    fauxton/test/mocha/sinon.js \
-    fauxton/test/mocha/testUtils.js \
-    fauxton/test/runner.html \
-    fauxton/test/test.config.underscore \
-    fauxton/TODO.md \
-    fauxton/writing_addons.md
+    src/assets/css/nv.d3.css \
+    src/assets/img/couchdb-site.png \
+    src/assets/img/couchdblogo.png \
+    src/assets/img/fontawesome-webfont.eot \
+    src/assets/img/fontawesome-webfont.svg \
+    src/assets/img/fontawesome-webfont.ttf \
+    src/assets/img/fontawesome-webfont.woff \
+    src/assets/img/FontAwesome.otf \
+    src/assets/img/fontcustom_fauxton.eot \
+    src/assets/img/fontcustom_fauxton.svg \
+    src/assets/img/fontcustom_fauxton.ttf \
+    src/assets/img/fontcustom_fauxton.woff \
+    src/assets/img/glyphicons-halflings-white.png \
+    src/assets/img/glyphicons-halflings.png \
+    src/assets/img/linen.png \
+    src/assets/img/loader.gif \
+    src/assets/img/minilogo.png \
+    src/assets/index.underscore \
+    src/assets/js/libs/ace/ace.js \
+    src/assets/js/libs/ace/ext-static_highlight.js \
+    src/assets/js/libs/ace/ext-chromevox.js \
+    src/assets/js/libs/ace/ext-statusbar.js \
+    src/assets/js/libs/ace/ext-elastic_tabstops_lite.js \
+    src/assets/js/libs/ace/ext-textarea.js \
+    src/assets/js/libs/ace/ext-emmet.js \
+    src/assets/js/libs/ace/ext-themelist.js \
+    src/assets/js/libs/ace/ext-keybinding_menu.js \
+    src/assets/js/libs/ace/ext-whitespace.js \
+    src/assets/js/libs/ace/ext-language_tools.js \
+    src/assets/js/libs/ace/mode-javascript.js \
+    src/assets/js/libs/ace/ext-modelist.js \
+    src/assets/js/libs/ace/mode-json.js \
+    src/assets/js/libs/ace/ext-old_ie.js \
+    src/assets/js/libs/ace/mode-jsoniq.js \
+    src/assets/js/libs/ace/ext-options.js \
+    src/assets/js/libs/ace/ext-searchbox.js \
+    src/assets/js/libs/ace/theme-crimson_editor.js \
+    src/assets/js/libs/ace/ext-settings_menu.js \
+    src/assets/js/libs/ace/worker-javascript.js \
+    src/assets/js/libs/ace/ext-spellcheck.js \
+    src/assets/js/libs/ace/worker-json.js \
+    src/assets/js/libs/ace/ext-split.js \
+    src/assets/js/libs/ace/snippets/javascript.js \
+    src/assets/js/libs/ace/snippets/json.js \
+    src/assets/js/libs/ace/snippets/jsoniq.js \
+    src/assets/js/libs/almond.js \
+    src/assets/js/libs/backbone.js \
+    src/assets/js/libs/bootstrap.js \
+    src/assets/js/libs/d3.js \
+    src/assets/js/libs/jquery.js \
+    src/assets/js/libs/lodash.js \
+    src/assets/js/libs/nv.d3.js \
+    src/assets/js/libs/require.js \
+    src/assets/js/libs/spin.min.js \
+    src/assets/js/plugins/backbone.layoutmanager.js \
+    src/assets/js/plugins/jquery.form.js \
+    src/assets/js/plugins/prettify.js \
+    src/assets/less/bootstrap/accordion.less \
+    src/assets/less/bootstrap/alerts.less \
+    src/assets/less/bootstrap/bootstrap.less \
+    src/assets/less/bootstrap/breadcrumbs.less \
+    src/assets/less/bootstrap/button-groups.less \
+    src/assets/less/bootstrap/buttons.less \
+    src/assets/less/bootstrap/carousel.less \
+    src/assets/less/bootstrap/close.less \
+    src/assets/less/bootstrap/code.less \
+    src/assets/less/bootstrap/component-animations.less \
+    src/assets/less/bootstrap/dropdowns.less \
+    src/assets/less/bootstrap/font-awesome/bootstrap.less \
+    src/assets/less/bootstrap/font-awesome/core.less \
+    src/assets/less/bootstrap/font-awesome/extras.less \
+    src/assets/less/bootstrap/font-awesome/font-awesome-ie7.less \
+    src/assets/less/bootstrap/font-awesome/font-awesome.less \
+    src/assets/less/bootstrap/font-awesome/icons.less \
+    src/assets/less/bootstrap/font-awesome/mixins.less \
+    src/assets/less/bootstrap/font-awesome/path.less \
+    src/assets/less/bootstrap/font-awesome/variables.less \
+    src/assets/less/bootstrap/forms.less \
+    src/assets/less/bootstrap/grid.less \
+    src/assets/less/bootstrap/hero-unit.less \
+    src/assets/less/bootstrap/labels-badges.less \
+    src/assets/less/bootstrap/layouts.less \
+    src/assets/less/bootstrap/media.less \
+    src/assets/less/bootstrap/mixins.less \
+    src/assets/less/bootstrap/modals.less \
+    src/assets/less/bootstrap/navbar.less \
+    src/assets/less/bootstrap/navs.less \
+    src/assets/less/bootstrap/pager.less \
+    src/assets/less/bootstrap/pagination.less \
+    src/assets/less/bootstrap/popovers.less \
+    src/assets/less/bootstrap/progress-bars.less \
+    src/assets/less/bootstrap/reset.less \
+    src/assets/less/bootstrap/responsive-1200px-min.less \
+    src/assets/less/bootstrap/responsive-767px-max.less \
+    src/assets/less/bootstrap/responsive-768px-979px.less \
+    src/assets/less/bootstrap/responsive-navbar.less \
+    src/assets/less/bootstrap/responsive-utilities.less \
+    src/assets/less/bootstrap/responsive.less \
+    src/assets/less/bootstrap/scaffolding.less \
+    src/assets/less/bootstrap/sprites.less \
+    src/assets/less/bootstrap/tables.less \
+    src/assets/less/bootstrap/tests/buttons.html \
+    src/assets/less/bootstrap/tests/css-tests.css \
+    src/assets/less/bootstrap/thumbnails.less \
+    src/assets/less/bootstrap/tooltip.less \
+    src/assets/less/bootstrap/type.less \
+    src/assets/less/bootstrap/utilities.less \
+    src/assets/less/bootstrap/variables.less \
+    src/assets/less/bootstrap/wells.less \
+    src/assets/less/config.less \
+    src/assets/less/couchdb.less \
+    src/assets/less/database.less \
+    src/assets/less/fauxton.less \
+    src/assets/less/icons.less \
+    src/assets/less/logs.less \
+    src/assets/less/prettyprint.less \
+    src/assets/less/variables.less \
+    src/bin/grunt \
+    src/couchapp.js \
+    src/favicon.ico \
+    src/Gruntfile.js \
+    src/index.html \
+    src/package.json \
+    src/settings.json.default \
+    src/settings.json.sample_external \
+    src/tasks/addon/rename.json \
+    src/tasks/addon/root/base.js.underscore \
+    src/tasks/addon/root/resources.js.underscore \
+    src/tasks/addon/root/routes.js.underscore \
+    src/tasks/addon/template.js \
+    src/tasks/couchserver.js \
+    src/tasks/fauxton.js \
+    src/tasks/helper.js \
+    src/test/core/layoutSpec.js \
+    src/test/core/navbarSpec.js \
+    src/test/core/paginateSpec.js \
+    src/test/core/routeObjectSpec.js \
+    src/test/mocha/chai.js \
+    src/test/mocha/mocha.css \
+    src/test/mocha/mocha.js \
+    src/test/mocha/sinon-chai.js \
+    src/test/mocha/sinon.js \
+    src/test/mocha/testUtils.js \
+    src/test/runner.html \
+    src/test/test.config.underscore \
+    src/writing_addons.md
+
+fauxton_build_files = \
+    build/css/index.css \
+    build/img/couchdb-site.png \
+    build/img/couchdblogo.png \
+    build/img/fontawesome-webfont.eot \
+    build/img/fontawesome-webfont.svg \
+    build/img/fontawesome-webfont.ttf \
+    build/img/fontawesome-webfont.woff \
+    build/img/FontAwesome.otf \
+    build/img/fontcustom_fauxton.eot \
+    build/img/fontcustom_fauxton.svg \
+    build/img/fontcustom_fauxton.ttf \
+    build/img/fontcustom_fauxton.woff \
+    build/img/glyphicons-halflings-white.png \
+    build/img/glyphicons-halflings.png \
+    build/img/img \
+    build/img/linen.png \
+    build/img/loader.gif \
+    build/img/minilogo.png \
+    build/index.html \
+    build/js/ace/mode-javascript.js \
+    build/js/ace/mode-json.js \
+    build/js/ace/theme-crimson_editor.js \
+    build/js/ace/worker-javascript.js \
+    build/js/ace/worker-json.js \
+    build/js/require.js
+
+EXTRA_DIST = \
+    $(fauxton_src_files) \
+    $(fauxton_build_files)
+
+BUILT_SOURCES = $(fauxton_build_files)
+
+$(fauxton_build_files): fauxton.stamp
+	@if test -f $@; then :; else \
+	    rm -f fauxton.stamp; \
+	    $(MAKE_SAFE) $(AM_MAKEFLAGS) fauxton.stamp; \
+	fi
+
+# @@ how is vpath handled?
+
+# @@ fauxton_src_files includes files that are updated when grunt runs, so
+# @@ this command runs each time. need to seperate this variable out
+
+fauxton.stamp: $(fauxton_src_files)
+	trap "rm -rf fauxton.lock fauxton.stamp" 1 2 13 15; \
+	if mkdir fauxton.lock 2>/dev/null; then \
+	    rm -f fauxton.tmp; \
+	    touch fauxton.tmp; \
+	    $(srcdir)/src/bin/grunt --gruntfile $(srcdir)/src/Gruntfile.js couchdb; \
+	    mv -f fauxton.tmp $@; \
+	    rmdir fauxton.lock; \
+	else \
+	    while test -d fauxton.lock; do \
+	        sleep 1; \
+	    done; \
+	    test -f fauxton.stamp; \
+	fi
+
+install-data-local:
+    for build_file in $(fauxton_build_files); do \
+        if test -s $$build_file; then \
+            inst_file=`echo $$build_file | sed s,^build,fauxton,`; \
+            $(INSTALL) -d `dirname $(DESTDIR)$(localdatadir)/www/$$inst_file`; \
+            $(INSTALL_DATA) \
+                $$dist_file $(DESTDIR)$(localdatadir)/www/$$inst_file; \
+        fi \
+    done
+
+uninstall-local:
+	for build_file in $(fauxton_build_files); do \
+	    if test -s $$build_file; then \
+	        inst_file=`echo $$build_file | sed s,^build,fauxton,`; \
+	        rm -f $(DESTDIR)$(localdatadir)/www/$$inst_file; \
+	    fi \
+	done
+
+DISTCLEANFILES = html.stamp
+
+distclean-local:
+	rm -fr build
