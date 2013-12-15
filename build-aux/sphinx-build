@@ -13,7 +13,7 @@
 # the License.
 
 # This script is called by the build system and is used to call sphinx-build if
-# is is available, or alternatively, emit a warning, and perform a no-op. Any
+# it is available, or alternatively, emit a warning, and perform a no-op. Any
 # required directories or Makefiles are created and stubbed out as appropriate.
 
 if test -z "`which sphinx-build`"; then
