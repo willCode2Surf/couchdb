@@ -23,6 +23,8 @@ ERROR: This file is missing or incomplete:
 
        This file is optional at build and install time,
        but is required when preparing a distribution.
+       Run \`./configure --enable-strictness\` to catch
+       any missing dependencies that may have caused this.
 EOF
 
 exit 1
