@@ -260,6 +260,15 @@ If you're working on the build system itself, you can run:
 
 This skips the tests allowing quicker `make' cycles.
 
+If you want to disable something for `make distcheck` you must pass down
+the `./configure` options through the environment.
+
+Run something like this:
+
+@@ this doens't work!
+
+    export DISTCHECK_CONFIGURE_FLAGS=--disable-tests
+
 If you want to build it into different destination than `/usr/local`.
 
     ./configure --prefix=/<your directory path>
