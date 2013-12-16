@@ -313,17 +313,11 @@ fauxton_build_files = \
 
 # @@ what is build/img/img doing there?
 
-# @@ should we distribute these files?
-# @@ clean share/www/fauxton/src/app/initialize.js
-# @@ clean share/www/fauxton/src/app/load_addons.js
-
 EXTRA_DIST = \
     $(fauxton_src_files) \
     $(fauxton_build_files)
 
 BUILT_SOURCES = $(fauxton_build_files)
-
-# @@ clean dist dir
 
 $(fauxton_build_files): fauxton.stamp
 	@if test -f $@; then :; else \
@@ -333,8 +327,11 @@ $(fauxton_build_files): fauxton.stamp
 
 # @@ how is vpath handled?
 
-# @@ fauxton_src_files includes files that are updated when grunt runs, so
-# @@ this command runs each time. need to seperate this variable out
+# @@ need to handle missing grunt properly
+# @@ ./src/bin/grunt: line 18: ./src/bin/../node_modules/.bin/grunt: No such file or directory
+# @@ build-aux script. also conditional build section above
+# @@ also, why is it trying to build fauxton if we ship the build dir?
+# @@ same question applies to the docs! very strange
 
 fauxton.stamp: $(fauxton_src_files)
 	trap "rm -rf fauxton.lock fauxton.stamp" 1 2 13 15; \
@@ -370,7 +367,18 @@ uninstall-local:
 	    fi \
 	done
 
-DISTCLEANFILES = html.stamp
+
+# @@ clean dist dir
+
+DISTCLEANFILES = \
+    fauxton.stamp \
+    src/app/initialize.js \
+    src/app/load_addons.js
 
 distclean-local:
 	rm -fr build
+	rm -fr src/dist
+
+# @@ src/node_modules
+maintainerclean-local:
+	echo
