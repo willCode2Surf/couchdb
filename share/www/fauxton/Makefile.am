@@ -300,7 +300,6 @@ fauxton_build_files = \
     build/img/fontcustom_fauxton.woff \
     build/img/glyphicons-halflings-white.png \
     build/img/glyphicons-halflings.png \
-    build/img/img \
     build/img/linen.png \
     build/img/loader.gif \
     build/img/minilogo.png \
@@ -311,6 +310,8 @@ fauxton_build_files = \
     build/js/ace/worker-javascript.js \
     build/js/ace/worker-json.js \
     build/js/require.js
+
+# @@ what is build/img/img doing there?
 
 # @@ should we distribute these files?
 # @@ clean share/www/fauxton/src/app/initialize.js
