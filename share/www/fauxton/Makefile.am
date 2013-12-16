@@ -83,7 +83,6 @@ fauxton_src_files = \
     src/app/app.js \
     src/app/config.js \
     src/app/helpers.js \
-    src/app/initialize.js \
     src/app/load_addons.js.underscore \
     src/app/main.js \
     src/app/mixins.js \
@@ -313,11 +312,17 @@ fauxton_build_files = \
     build/js/ace/worker-json.js \
     build/js/require.js
 
+# @@ should we distribute these files?
+# @@ clean share/www/fauxton/src/app/initialize.js
+# @@ clean share/www/fauxton/src/app/load_addons.js
+
 EXTRA_DIST = \
     $(fauxton_src_files) \
     $(fauxton_build_files)
 
 BUILT_SOURCES = $(fauxton_build_files)
+
+# @@ clean dist dir
 
 $(fauxton_build_files): fauxton.stamp
 	@if test -f $@; then :; else \
