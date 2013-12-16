@@ -328,9 +328,9 @@ $(fauxton_build_files): fauxton.stamp
 # @@ how is vpath handled?
 
 # @@ need to handle missing grunt properly
-# @@ ./src/bin/grunt: line 18: ./src/bin/../node_modules/.bin/grunt: No such file or directory
-# @@ build-aux script. also conditional build section above
-# @@ also, why is it trying to build fauxton if we ship the build dir?
+# @@ conditional build section above?
+# @@ why is it trying to build fauxton if we ship the build dir?
+# @@ BUILT_SOURCES?
 # @@ same question applies to the docs! very strange
 
 fauxton.stamp: $(fauxton_src_files)
@@ -338,7 +338,9 @@ fauxton.stamp: $(fauxton_src_files)
 	if mkdir fauxton.lock 2>/dev/null; then \
 	    rm -f fauxton.tmp; \
 	    touch fauxton.tmp; \
-	    $(srcdir)/src/bin/grunt --gruntfile $(srcdir)/src/Gruntfile.js couchdb; \
+	    $(top_srcdir)/build-aux/missing \
+            $(srcdir)/src/bin/grunt \
+            --gruntfile $(srcdir)/src/Gruntfile.js couchdb; \
 	    mv -f fauxton.tmp $@; \
 	    rmdir fauxton.lock; \
 	else \
@@ -366,9 +368,6 @@ uninstall-local:
 	        rm -f $(DESTDIR)$(localdatadir)/www/$$inst_file; \
 	    fi \
 	done
-
-
-# @@ clean dist dir
 
 DISTCLEANFILES = \
     fauxton.stamp \
