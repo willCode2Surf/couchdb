@@ -60,9 +60,9 @@ share/doc/build/html
 share/doc/build/latex
 share/doc/build/texinfo
 share/www/fauxton/build
-share/www/fauxton/dist
 share/www/fauxton/src/app/initialize.js
 share/www/fauxton/src/app/load_addons.js
+share/www/fauxton/src/dist
 share/www/fauxton/src/node_modules
 share/server/main-coffee.js
 share/server/main.js

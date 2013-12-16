@@ -52,7 +52,7 @@ module.exports = function(grunt) {
     // Whitelist files and directories to be cleaned
     // You'll always want to clean these two directories
     // Now find the external addons you have and add them for cleaning up
-    return _.union(["../dist/", "app/load_addons.js"], cleanableAddons);
+    return _.union(["dist/", "app/load_addons.js"], cleanableAddons);
   }();
 
   var assets = function(){
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
       less:{
         paths: ["assets/less"],
         files: {
-          "../dist/debug/css/fauxton.css": "assets/less/fauxton.less"
+          "dist/debug/css/fauxton.css": "assets/less/fauxton.less"
         }
       },
       img: ["assets/img/**"]
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
       if(path.existsSync(lessPath)){
         // .less files exist for this addon
         theAssets.less.paths.push(lessPath);
-        theAssets.less.files["../dist/debug/css/" + addon.name + ".css"] =
+        theAssets.less.files["dist/debug/css/" + addon.name + ".css"] =
           lessPath + "/" + addon.name + ".less";
       }
       // Images
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
     var defaultSettings = {
      "development": {
         "src": "assets/index.underscore",
-        "dest": "../dist/debug/index.html",
+        "dest": "dist/debug/index.html",
         "variables": {
           "requirejs": "/assets/js/libs/require.js",
           "css": "./css/index.css",
@@ -99,7 +99,7 @@ module.exports = function(grunt) {
       },
       "release": {
         "src": "assets/index.underscore",
-        "dest": "../dist/debug/index.html",
+        "dest": "dist/debug/index.html",
         "variables": {
           "requirejs": "./js/require.js",
           "css": "./css/index.css",
@@ -114,7 +114,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
 
-    // The clean task ensures all files are removed from the ../dist/ directory so
+    // The clean task ensures all files are removed from the dist/ directory so
     // that no files linger from previous builds.
     clean: {
       release:  cleanable,
@@ -160,7 +160,7 @@ module.exports = function(grunt) {
     // The concat task depends on this file to exist, so if you decide to
     // remove this, ensure concat is updated accordingly.
     jst: {
-      "../dist/debug/templates.js": [
+      "dist/debug/templates.js": [
         "app/templates/**/*.html",
         "app/addons/**/templates/**/*.html"
       ]
@@ -170,21 +170,21 @@ module.exports = function(grunt) {
 
     // The concatenate task is used here to merge the almond require/define
     // shim and the templates into the application code.  It's named
-    // ../dist/debug/require.js, because we want to only load one script file in
+    // dist/debug/require.js, because we want to only load one script file in
     // index.html.
     concat: {
       requirejs: {
-        src: [ "assets/js/libs/require.js", "../dist/debug/templates.js", "../dist/debug/require.js"],
-        dest: "../dist/debug/js/require.js"
+        src: [ "assets/js/libs/require.js", "dist/debug/templates.js", "dist/debug/require.js"],
+        dest: "dist/debug/js/require.js"
       },
 
       index_css: {
-        src: ["../dist/debug/css/*.css", 'assets/css/*.css'],
-        dest: '../dist/debug/css/index.css'
+        src: ["dist/debug/css/*.css", 'assets/css/*.css'],
+        dest: 'dist/debug/css/index.css'
       },
 
       test_config_js: {
-        src: ["../dist/debug/templates.js", "test/test.config.js"],
+        src: ["dist/debug/templates.js", "test/test.config.js"],
         dest: 'test/test.config.js'
       },
     },
@@ -192,8 +192,8 @@ module.exports = function(grunt) {
     cssmin: {
       compress: {
         files: {
-          "../dist/release/css/index.css": [
-            "../dist/debug/css/index.css", 'assets/css/*.css',
+          "dist/release/css/index.css": [
+            "dist/debug/css/index.css", 'assets/css/*.css',
             "app/addons/**/assets/css/*.css"
           ]
         },
@@ -206,8 +206,8 @@ module.exports = function(grunt) {
     uglify: {
       release: {
         files: {
-          "../dist/release/js/require.js": [
-            "../dist/debug/js/require.js"
+          "dist/release/js/require.js": [
+            "dist/debug/js/require.js"
           ]
         }
       }
@@ -215,7 +215,7 @@ module.exports = function(grunt) {
 
     // Runs a proxy server for easier development, no need to keep deploying to couchdb
     couchserver: {
-      dist: './../dist/debug/',
+      dist: './dist/debug/',
       port: 8000,
       proxy: {
         target: {
@@ -258,7 +258,7 @@ module.exports = function(grunt) {
           mainConfigFile: "app/config.js",
 
           // Output file.
-          out: "../dist/debug/require.js",
+          out: "dist/debug/require.js",
 
           // Root application module.
           name: "config",
@@ -277,40 +277,40 @@ module.exports = function(grunt) {
       couchdb: {
         files: [
           // this gets built in the template task
-          {src: "../dist/release/index.html", dest: "../build/index.html"},
-          {src: ["**"], dest: "../build/js/", cwd:'../dist/release/js/',  expand: true},
-          {src: ["**"], dest: "../build/img/", cwd:'../dist/release/img/', expand: true},
-          {src: ["**"], dest: "../build/css/", cwd:"../dist/release/css/", expand: true}
+          {src: "dist/release/index.html", dest: "../build/index.html"},
+          {src: ["**"], dest: "../build/js/", cwd:'dist/release/js/',  expand: true},
+          {src: ["**"], dest: "../build/img/", cwd:'dist/release/img/', expand: true},
+          {src: ["**"], dest: "../build/css/", cwd:"dist/release/css/", expand: true}
         ]
       },
       couchdebug: {
         files: [
           // this gets built in the template task
-          {src: "../dist/debug/index.html", dest: "../build/index.html"},
-          {src: ["**"], dest: "../build/js/", cwd:'../dist/debug/js/',  expand: true},
-          {src: ["**"], dest: "../build/img/", cwd:'../dist/debug/img/', expand: true},
-          {src: ["**"], dest: "../build/css/", cwd:"../dist/debug/css/", expand: true}
+          {src: "dist/debug/index.html", dest: "../build/index.html"},
+          {src: ["**"], dest: "../build/js/", cwd:'dist/debug/js/',  expand: true},
+          {src: ["**"], dest: "../build/img/", cwd:'dist/debug/img/', expand: true},
+          {src: ["**"], dest: "../build/css/", cwd:"dist/debug/css/", expand: true}
         ]
       },
       ace: {
         files: [
-          {src: "assets/js/libs/ace/worker-json.js", dest: "../dist/release/js/ace/worker-json.js"},
-          {src: "assets/js/libs/ace/mode-json.js", dest: "../dist/release/js/ace/mode-json.js"},
-          {src: "assets/js/libs/ace/theme-crimson_editor.js", dest: "../dist/release/js/ace/theme-crimson_editor.js"},
-          {src: "assets/js/libs/ace/mode-javascript.js", dest: "../dist/release/js/ace/mode-javascript.js"},
-          {src: "assets/js/libs/ace/worker-javascript.js", dest: "../dist/release/js/ace/worker-javascript.js"},
+          {src: "assets/js/libs/ace/worker-json.js", dest: "dist/release/js/ace/worker-json.js"},
+          {src: "assets/js/libs/ace/mode-json.js", dest: "dist/release/js/ace/mode-json.js"},
+          {src: "assets/js/libs/ace/theme-crimson_editor.js", dest: "dist/release/js/ace/theme-crimson_editor.js"},
+          {src: "assets/js/libs/ace/mode-javascript.js", dest: "dist/release/js/ace/mode-javascript.js"},
+          {src: "assets/js/libs/ace/worker-javascript.js", dest: "dist/release/js/ace/worker-javascript.js"},
         ]
       },
 
       dist:{
         files:[
-          {src: "../dist/debug/index.html", dest: "../dist/release/index.html"},
-          {src: assets.img, dest: "../dist/release/img/", flatten: true, expand: true}
+          {src: "dist/debug/index.html", dest: "dist/release/index.html"},
+          {src: assets.img, dest: "dist/release/img/", flatten: true, expand: true}
         ]
       },
       debug:{
         files:[
-          {src: assets.img, dest: "../dist/debug/img/", flatten: true, expand: true}
+          {src: assets.img, dest: "dist/debug/img/", flatten: true, expand: true}
         ]
       }
     },
