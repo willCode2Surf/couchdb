@@ -84,6 +84,9 @@
 ^share/www/style/jquery-ui-1.8.11.custom.css
 ^share/www/fauxton/Makefile
 ^share/www/fauxton/Makefile.in
+^share/www/fauxton/build/img/.*
+^share/www/fauxton/build/js/ace/.*
+^share/www/fauxton/fauxton.stamp
 ^share/www/fauxton/src/app/addons/config/assets/less/config.less
 ^share/www/fauxton/src/app/modules/pouchdb/base.js
 ^share/www/fauxton/src/app/modules/pouchdb/pouch.collate.js
@@ -111,8 +114,6 @@
 ^share/www/fauxton/src/test/mocha/sinon.js
 ^share/www/fauxton/src/test/test.config.underscore
 ^share/www/fauxton/src/writing_addons.md
-^share/www/fauxton/build/img/.*
-^share/www/fauxton/build/js/ace/.*
 ^src/Makefile
 ^src/Makefile.in
 ^src/couch_index/Makefile
