@@ -287,13 +287,13 @@ fauxton_src_files = \
 
 fauxton_build_files = \
     build/css/index.css \
+    build/img/FontAwesome.otf \
     build/img/couchdb-site.png \
     build/img/couchdblogo.png \
     build/img/fontawesome-webfont.eot \
     build/img/fontawesome-webfont.svg \
     build/img/fontawesome-webfont.ttf \
     build/img/fontawesome-webfont.woff \
-    build/img/FontAwesome.otf \
     build/img/fontcustom_fauxton.eot \
     build/img/fontcustom_fauxton.svg \
     build/img/fontcustom_fauxton.ttf \
@@ -352,14 +352,15 @@ fauxton.stamp: $(fauxton_src_files)
 	fi
 
 install-data-local:
-    for build_file in $(fauxton_build_files); do \
-        if test -s $$build_file; then \
-            inst_file=`echo $$build_file | sed s,^build,fauxton,`; \
-            $(INSTALL) -d `dirname $(DESTDIR)$(localdatadir)/www/$$inst_file`; \
-            $(INSTALL_DATA) \
-                $$dist_file $(DESTDIR)$(localdatadir)/www/$$inst_file; \
-        fi \
-    done
+	echo hello
+	for build_file in $(fauxton_build_files); do \
+	    if test -s $$build_file; then \
+	        inst_file=`echo $$build_file | sed s,^build,fauxton,`; \
+	        $(INSTALL) -d `dirname $(DESTDIR)$(localdatadir)/www/$$inst_file`; \
+	        $(INSTALL_DATA) \
+	            $$build_file $(DESTDIR)$(localdatadir)/www/$$inst_file; \
+	    fi \
+	done
 
 uninstall-local:
 	for build_file in $(fauxton_build_files); do \
