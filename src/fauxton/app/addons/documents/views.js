@@ -1110,7 +1110,9 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
         this.showPreview = options.showPreview;
       }
 
-      this.listenTo(this.eventer, 'options:param_update', this.optionsParamsUpdate);
+      if (this.eventer) { 
+        this.listenTo(this.eventer, 'options:param_update', this.optionsParamsUpdate);
+      }
     },
 
     events: {
