@@ -470,8 +470,15 @@ function(app, FauxtonAPI) {
 
     totalRows: function() {
       if (this.params.reduce) { return "unknown_reduce";}
+      var total = "unknown";
 
-      return this.viewMeta.total_rows || "unknown";
+      if (this.viewMeta.total_rows) {
+        total = this.viewMeta.total_rows;
+      } else if (this.length > 0) {
+        total = this.length;
+      }
+
+      return total;
     },
 
     updateSeq: function() {
