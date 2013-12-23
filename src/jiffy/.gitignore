@@ -1,0 +1,7 @@
+.jiffy.dev
+*.app
+*.beam
+*.o
+*.so
+.eunit
+deps
