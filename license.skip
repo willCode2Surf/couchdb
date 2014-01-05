@@ -52,6 +52,13 @@
 ^etc/logrotate.d/couchdb.*
 ^etc/windows/Makefile
 ^etc/windows/README.txt.tpl
+^extra/Makefile
+^extra/Makefile.in
+^extra/couchjs-node/package.json
+^extra/couchjs-node/sandbox.js
+^extra/couchjs-node/README.md
+^extra/couchjs-node/Makefile
+^extra/couchjs-node/Makefile.in
 ^libtool
 ^license.skip
 ^m4/.*
@@ -114,11 +121,6 @@
 ^src/couchdb/priv/couchjs
 ^src/couchdb/priv/couchspawnkillable
 ^src/couchdb/priv/stat_descriptions.cfg
-^src/couchjs-node/package.json
-^src/couchjs-node/sandbox.js
-^src/couchjs-node/README.md
-^src/couchjs-node/Makefile
-^src/couchjs-node/Makefile.in
 ^src/erlang-oauth/.*
 ^src/couch_dbupdates
 ^src/ejson/.*

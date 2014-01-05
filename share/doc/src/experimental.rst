@@ -40,7 +40,7 @@ Downloads <http://nodejs.org/download/>`_ for options.
 
 1. Install the `couchjs-node` binary. Either from the CouchDB sources::
 
-    cd src/couchjs-node
+    cd extra/couchjs-node
     npm link
 
 Or via NPM::

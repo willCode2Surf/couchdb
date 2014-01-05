@@ -22,8 +22,7 @@ SUBDIRS = \
     etap \
     ibrowse \
     mochiweb \
-    snappy \
-    couchjs-node
+    snappy
 
 EXTRA_DIST = \
     $(MY_FIRST_COUCHDB_PLUGIN_FILES) \

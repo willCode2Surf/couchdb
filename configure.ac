@@ -445,7 +445,7 @@ has_crypto=`\
 
 if test -n "$has_crypto"; then
     AC_MSG_ERROR([Could not find the Erlang crypto library.
-    
+
 Has Erlang been compiled with OpenSSL support?])
 fi
 
@@ -453,7 +453,7 @@ AC_PATH_PROG([ERLC], [erlc])
 
 if test x${ERLC} = x; then
     AC_MSG_ERROR([Could not find the `erlc' executable.
-    
+
 Is Erlang installed?])
 fi
 
@@ -566,7 +566,7 @@ AC_CHECK_PROG([HAS_PDFLATEX], [pdflatex], [yes])
 if test x${HAS_PDFLATEX} = x; then
     if test x${strictness_enabled} = xyes; then
         AC_MSG_ERROR([Could not find the `pdflatex' executable.
-    
+
 Is LaTeX installed?])
     else
         AC_MSG_WARN([You will be unable to regenerate PDF documentation.])
@@ -578,7 +578,7 @@ AC_CHECK_PROG([HAS_MAKEINFO], [makeinfo], [yes])
 if test x${HAS_MAKEINFO} = x; then
     if test x${strictness_enabled} = xyes; then
         AC_MSG_ERROR([Could not find the `makeinfo' executable.
-    
+
 Is GNU Texinfo installed?])
     else
         AC_MSG_WARN([You will be unable to regenerate info documentation.])
@@ -590,7 +590,7 @@ AC_CHECK_PROG([HAS_INSTALLINFO], [install-info], [yes])
 if test x${HAS_INSTALLINFO} = x; then
     if test x${strictness_enabled} = xyes; then
         AC_MSG_ERROR([Could not find the `install-info' executable.
-    
+
 Is GNU Texinfo installed?])
     else
         AC_MSG_WARN([You will be unable to install info documentation.])
@@ -727,6 +727,8 @@ AC_CONFIG_FILES([etc/logrotate.d/couchdb.tpl])
 AC_CONFIG_FILES([etc/logrotate.d/Makefile])
 AC_CONFIG_FILES([etc/windows/Makefile])
 AC_CONFIG_FILES([etc/Makefile])
+AC_CONFIG_FILES([extra/couchjs-node/Makefile])
+AC_CONFIG_FILES([extra/Makefile])
 AC_CONFIG_FILES([share/Makefile])
 AC_CONFIG_FILES([share/doc/Makefile])
 AC_CONFIG_FILES([share/doc/build/Makefile])
@@ -736,7 +738,6 @@ AC_CONFIG_FILES([src/couch_index/Makefile])
 AC_CONFIG_FILES([src/couch_mrview/Makefile])
 AC_CONFIG_FILES([src/couch_plugins/Makefile])
 AC_CONFIG_FILES([src/couch_replicator/Makefile])
-AC_CONFIG_FILES([src/couchjs-node/Makefile])
 AC_CONFIG_FILES([src/couchdb/couch.app.tpl])
 AC_CONFIG_FILES([src/couchdb/Makefile])
 AC_CONFIG_FILES([src/couchdb/priv/Makefile])
