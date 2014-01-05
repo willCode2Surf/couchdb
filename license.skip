@@ -68,6 +68,11 @@
 ^share/doc/src/conf.pyc
 ^share/doc/static/rtd.css
 ^share/doc/templates/couchdb/domainindex.html
+^share/examples/my-first-couchdb-plugin/priv/*/*
+^share/examples/my-first-couchdb-plugin/README.md
+^share/examples/my-first-couchdb-plugin/.gitignore
+^share/examples/my-first-couchdb-plugin/Makefile
+^share/examples/my-first-couchdb-plugin/Makefile.in
 ^share/server/json2.js
 ^share/server/mimeparse.js
 ^share/server/coffee-script.js
@@ -154,11 +159,6 @@
 ^src/fauxton/assets/lib/ace/.*
 ^src/ibrowse/.*
 ^src/mochiweb/.*
-^src/my-first-couchdb-plugin/priv/*/*
-^src/my-first-couchdb-plugin/README.md
-^src/my-first-couchdb-plugin/.gitignore
-^src/my-first-couchdb-plugin/Makefile
-^src/my-first-couchdb-plugin/Makefile.in
 ^src/snappy/.*
 ^stamp-h1
 ^test/Makefile

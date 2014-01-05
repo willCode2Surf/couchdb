@@ -25,18 +25,7 @@ SUBDIRS = \
     snappy \
     couchjs-node
 
-EXTRA_DIST = \
-    $(MY_FIRST_COUCHDB_PLUGIN_FILES) \
-    $(FAUXTON_FILES)
-
-MY_FIRST_COUCHDB_PLUGIN_FILES = \
-  my-first-couchdb-plugin/.gitignore \
-  my-first-couchdb-plugin/Makefile \
-  my-first-couchdb-plugin/priv/default.d/my_first_couchdb_plugin.ini \
-  my-first-couchdb-plugin/README.md \
-  my-first-couchdb-plugin/src/my_first_couchdb_plugin.app.src \
-  my-first-couchdb-plugin/src/my_first_couchdb_plugin.erl \
-  my-first-couchdb-plugin/test/my_first_couchdb_plugin_tests.erl
+EXTRA_DIST = $(FAUXTON_FILES)
 
 FAUXTON_FILES = \
     fauxton/app/addons/activetasks/assets/less/activetasks.less \

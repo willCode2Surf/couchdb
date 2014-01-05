@@ -24,7 +24,7 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_HEADERS([src/snappy/google-snappy/config.h])
 
-AM_INIT_AUTOMAKE([1.6.3 foreign])
+AM_INIT_AUTOMAKE([1.6.3 foreign tar-ustar])
 
 AC_USE_SYSTEM_EXTENSIONS
 AC_ENABLE_SHARED
@@ -730,6 +730,7 @@ AC_CONFIG_FILES([etc/Makefile])
 AC_CONFIG_FILES([share/Makefile])
 AC_CONFIG_FILES([share/doc/Makefile])
 AC_CONFIG_FILES([share/doc/build/Makefile])
+AC_CONFIG_FILES([share/examples/Makefile])
 AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([src/couch_dbupdates/Makefile])
 AC_CONFIG_FILES([src/couch_index/Makefile])
