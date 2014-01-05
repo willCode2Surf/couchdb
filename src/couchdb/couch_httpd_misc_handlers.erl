@@ -83,11 +83,11 @@ handle_utils_dir_req(Req, _) ->
     send_method_not_allowed(Req, "GET,HEAD").
 
 handle_all_dbs_req(#httpd{method='GET'}=Req) ->
-    Limit0 = couch_util:to_integer(couch_httpd:qs_value(Req, "limit",
+    Limit = couch_util:to_integer(couch_httpd:qs_value(Req, "limit",
                                                         ?MAX_DBS_LISTED)),
-    Skip0 = couch_util:to_integer(couch_httpd:qs_value(Req, "skip", -1)),
+    Skip = couch_util:to_integer(couch_httpd:qs_value(Req, "skip", -1)),
     {ok, {DbNames, _, _}} = couch_server:all_databases(fun all_dbs_fun/2,
-                                                       {[], Skip0, Limit0}),
+                                                       {[], Skip, Limit}),
     send_json(Req, lists:usort(DbNames));
 handle_all_dbs_req(Req) ->
     send_method_not_allowed(Req, "GET,HEAD").
