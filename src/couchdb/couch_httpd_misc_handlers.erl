@@ -28,7 +28,7 @@
     start_chunked_response/3, send_error/4]).
 
 
--define(MAX_DBS, 16#10000000).
+-define(MAX_DBS_LISTED, 16#10000000).
 
 % httpd global handlers
 
@@ -84,7 +84,7 @@ handle_utils_dir_req(Req, _) ->
 
 handle_all_dbs_req(#httpd{method='GET'}=Req) ->
     Limit0 = couch_util:to_integer(couch_httpd:qs_value(Req, "limit",
-                                                        ?MAX_DBS)),
+                                                        ?MAX_DBS_LISTED)),
     Skip0 = couch_util:to_integer(couch_httpd:qs_value(Req, "skip", -1)),
     {ok, {DbNames, _, _}} = couch_server:all_databases(fun all_dbs_fun/2,
                                                        {[], Skip0, Limit0}),
