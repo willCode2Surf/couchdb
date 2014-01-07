@@ -436,9 +436,8 @@ function(app, FauxtonAPI) {
       }
 
       this.params.startkey_docid = '"' + lastDoc.get("id") + '"';
-      this.params.startkey = '"' + lastDoc.get('key') + '"';
-      this.params.limit = num;
-      console.log('url next params', this.params, lastDoc);
+      this.params.startkey =  JSON.stringify(lastDoc.get('key'));
+      this.params.limit = num + 1;
       return this.url('app');
     },
 
