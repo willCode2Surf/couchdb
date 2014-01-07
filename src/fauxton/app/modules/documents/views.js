@@ -700,7 +700,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
     beforeRender: function() {
       var showNumbers = true;
 
-      if (this.designDocs || this.collection.params.startkey === '"_design"') {
+      if (this.designDocs || this.collection.idxType === '_view' || this.collection.params.startkey === '"_design"') {
         showNumbers = false;
       }
 
