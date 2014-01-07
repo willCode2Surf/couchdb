@@ -60,7 +60,7 @@ function(app, FauxtonAPI, ace) {
       "click a#previous": 'previousClicked'
     },
 
-    previousIds: [],
+    previousParams: [],
 
     scrollTo: function () {
       if (!this.scrollToSelector) { return; }
@@ -88,10 +88,11 @@ function(app, FauxtonAPI, ace) {
       event.preventDefault();
       event.stopPropagation();
       if (!this.canShowNextfn()) { return; }
-      var doc = this.collection.first();
 
-      if (doc) {
-        this.previousIds.push(doc.id);
+      var params = _.clone(this.collection.params);
+
+      if (params) {
+        this.previousParams.push(params);
       }
 
       FauxtonAPI.navigate(this.nextUrlfn(), {trigger: false});

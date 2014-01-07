@@ -446,6 +446,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
 
     initialize: function (options) {
       this.newView = options.newView || false;
+      this.showNumbers = options.showNumbers;
       
       this.listenTo(this.collection, 'totalRows:decrement', this.render);
     },
@@ -467,6 +468,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
         updateSeq: updateSeq,
         offset: recordStart,
         totalRows: totalRows,
+        showNumbers: this.showNumbers,
         numModels: this.collection.models.length + recordStart - 1,
       };
     }
@@ -672,17 +674,17 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
         collection: this.collection,
         scrollToSelector: '#dashboard-content',
         previousUrlfn: function () {
-          return collection.urlPreviousPage(20, this.previousIds.pop());
+          return collection.urlPreviousPage(20, this.previousParams.pop());
         },
         canShowPreviousfn: function () {
-          if (collection.viewMeta.offset === 0) {
+          if (this.previousParams.length === 0) {
             return false;
           }
 
           return true;
         },
         canShowNextfn: function () {
-          if (collection.length === 0 || (collection.viewMeta.offset + collection.length + 2) >= collection.viewMeta.total_rows) {
+          if (collection.length < 20) {
             return false;
           }
 
@@ -696,9 +698,16 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
     },
 
     beforeRender: function() {
+      var showNumbers = true;
+
+      if (this.designDocs || this.collection.params.startkey === '"_design"') {
+        showNumbers = false;
+      }
+
       this.allDocsNumber = this.setView('#item-numbers', new Views.AllDocsNumber({
         collection: this.collection,
-        newView: this.newView
+        newView: this.newView,
+        showNumbers: showNumbers
       }));
 
       this.insertView('#documents-pagination', this.pagination);

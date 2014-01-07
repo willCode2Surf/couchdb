@@ -234,8 +234,6 @@ function(app, FauxtonAPI, Documents, Databases) {
         params: params
       });
 
-
-
       var ddocInfo = {
         id: "_design/" + decodeDdoc,
         currView: view,
