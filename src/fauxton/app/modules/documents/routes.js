@@ -298,7 +298,9 @@ function(app, FauxtonAPI, Documents, Databases) {
           ddoc = event.ddoc;
 
       if (event.allDocs) {
-        return;// this.data.database.buildAllDocs(docOptions);
+        this.documentsView.collection = this.data.database.buildAllDocs(docOptions);
+        this.documentsView.cleanup();
+        return this.documentsView.forceRender();
       }
 
       this.data.indexedDocs = new Documents.IndexCollection(null, {

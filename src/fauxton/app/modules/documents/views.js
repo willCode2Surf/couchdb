@@ -551,7 +551,6 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
       fragment = fragment + '?' + $.param(params);
       FauxtonAPI.navigate(fragment, {trigger: false});
 
-      console.log('all', fragment, params);
       FauxtonAPI.triggerRouteEvent('updateAllDocs', {allDocs: true});
     },
 
@@ -590,7 +589,6 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
       }
       this.newView = options.newView || false;
       this.expandDocs = true;
-      this.addPagination();
     },
 
     establish: function() {
@@ -724,6 +722,9 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
     beforeRender: function() {
       var showNumbers = true;
 
+      this.addPagination();
+      this.insertView('#documents-pagination', this.pagination);
+
       if (this.designDocs || this.collection.idxType === '_view' || this.collection.params.startkey === '"_design"') {
         showNumbers = false;
       }
@@ -735,7 +736,6 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
         pagination: this.pagination
       }));
 
-      this.insertView('#documents-pagination', this.pagination);
       var docs = this.expandDocs ? this.collection : this.collection.simple();
 
       docs.each(function(doc) {
