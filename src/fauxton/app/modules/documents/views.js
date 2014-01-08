@@ -447,6 +447,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
     initialize: function (options) {
       this.newView = options.newView || false;
       this.showNumbers = options.showNumbers;
+      this.pagination = options.pagination;
       
       this.listenTo(this.collection, 'totalRows:decrement', this.render);
     },
@@ -454,7 +455,9 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
     serialize: function () {
        var totalRows = 0,
           recordStart = 0,
-          updateSeq = false;
+          updateSeq = false,
+          pageStart = 0,
+          pageEnd = 20;
 
       if (!this.newView) {
         totalRows = this.collection.totalRows();
@@ -462,6 +465,10 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
       }
 
       recordStart = this.collection.recordStart();
+      if (this.pagination) {
+        pageStart = this.pagination.pageStart();
+        pageEnd =  this.pagination.pageEnd();
+      }
 
       return {
         database: app.mixins.safeURLName(this.collection.database.id),
@@ -470,6 +477,8 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
         totalRows: totalRows,
         showNumbers: this.showNumbers,
         numModels: this.collection.models.length + recordStart - 1,
+        pageStart: pageStart,
+        pageEnd: pageEnd
       };
     }
 
@@ -668,12 +677,21 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
 
     addPagination: function () {
       var collection = this.collection;
+      var perPage = function () {
+        if (collection.params.limit && collection.skipFirstItem) {
+          return parseInt(collection.params.limit, 10) - 1;
+        } else if (collection.params.limit) {
+          return parseInt(collection.params.limit, 10);
+        }
+
+        return 20;
+      };
 
       this.pagination = new Components.IndexPagination({
         collection: this.collection,
         scrollToSelector: '#dashboard-content',
         previousUrlfn: function () {
-          return collection.urlPreviousPage(20, this.previousParams.pop());
+          return collection.urlPreviousPage(perPage(), this.previousParams.pop());
         },
         canShowPreviousfn: function () {
           if (this.previousParams.length === 0) {
@@ -683,7 +701,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
           return true;
         },
         canShowNextfn: function () {
-          if (collection.length < 20) {
+          if (collection.length < (perPage() -1)) {
             return false;
           }
 
@@ -691,7 +709,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
         },
         
         nextUrlfn: function () {
-          return collection.urlNextPage(20);
+          return collection.urlNextPage(perPage());
         }
       });
     },
@@ -712,7 +730,8 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
       this.allDocsNumber = this.setView('#item-numbers', new Views.AllDocsNumber({
         collection: this.collection,
         newView: this.newView,
-        showNumbers: showNumbers
+        showNumbers: showNumbers,
+        pagination: this.pagination
       }));
 
       this.insertView('#documents-pagination', this.pagination);

@@ -103,6 +103,28 @@ function(app, FauxtonAPI, ace) {
         canShowNextfn: this.canShowNextfn,
         canShowPreviousfn: this.canShowPreviousfn,
       };
+    },
+
+    pageLimit: function () {
+      var limit = 20;
+
+      if (this.collection.params.limit && this.collection.skipFirstItem) {
+        limit = parseInt(this.collection.params.limit, 10) - 1;
+      } else if (this.collection.params.limit) {
+        limit = parseInt(this.collection.params.limit, 10);
+      }
+
+      console.log('limi', limit, this.collection.params.limit);
+      return limit;
+    },
+
+    pageStart: function () {
+      return (this.previousParams.length * this.pageLimit()) + 1; 
+
+    },
+
+    pageEnd: function () {
+      return (this.previousParams.length * this.pageLimit()) + this.pageLimit();
     }
 
   });
