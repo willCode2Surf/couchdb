@@ -435,7 +435,11 @@ function(app, FauxtonAPI) {
         lastDoc = this.last();
       }
 
-      this.params.startkey_docid = lastDoc.get("id");
+      var id = lastDoc.get("id");
+      if (id) {
+        this.params.startkey_docid = id;
+      }
+
       this.params.startkey =  JSON.stringify(lastDoc.get('key'));
       this.params.limit = num + 1;
       return this.url('app');
@@ -465,6 +469,8 @@ function(app, FauxtonAPI) {
     },
 
     totalRows: function() {
+      if (this.params.reduce) { return "unknown_reduce";}
+
       return this.viewMeta.total_rows || "unknown";
     },
 

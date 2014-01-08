@@ -653,7 +653,6 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
           });
 
           model.collection.remove(model.id);
-          console.log(model.id.match('_design'), !!model.id.match('_design'));
           if (!!model.id.match('_design')) { 
             FauxtonAPI.triggerRouteEvent('reloadDesignDocs');
           }
@@ -695,6 +694,12 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
           return collection.urlNextPage(20);
         }
       });
+    },
+    
+    cleanup: function () {
+      this.pagination.remove();
+      this.allDocsNumber.remove();
+      _.each(this.rows, function (row) {row.remove();});
     },
 
     beforeRender: function() {

@@ -252,6 +252,7 @@ function(app, FauxtonAPI, Documents, Databases) {
 
       if (this.toolsView) { this.toolsView.remove(); }
 
+      console.log('showing');
       this.documentsView = this.setView("#dashboard-lower-content", new Documents.Views.AllDocsList({
         database: this.data.database,
         collection: this.data.indexedDocs,
@@ -311,6 +312,7 @@ function(app, FauxtonAPI, Documents, Databases) {
         params: app.getParams()
       });
 
+      this.documentsView && this.documentsView.remove();
       this.documentsView = this.setView("#dashboard-lower-content", new Documents.Views.AllDocsList({
         database: this.data.database,
         collection: this.data.indexedDocs,

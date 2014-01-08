@@ -60,8 +60,6 @@ function(app, FauxtonAPI, ace) {
       "click a#previous": 'previousClicked'
     },
 
-    previousParams: [],
-
     scrollTo: function () {
       if (!this.scrollToSelector) { return; }
       $(this.scrollToSelector).animate({ scrollTop: 0 }, 'slow');
@@ -74,6 +72,7 @@ function(app, FauxtonAPI, ace) {
       this.canShowNextfn = options.canShowNextfn;
       this.scrollToSelector = options.scrollToSelector;
       _.bindAll(this);
+      this.previousParams = [];
     },
 
     previousClicked: function (event) {
