@@ -188,7 +188,6 @@ function(app, FauxtonAPI, Documents, Databases) {
     allDocs: function(databaseName, options) {
       var docOptions = app.getParams(options);
 
-      docOptions.include_docs = true;
       this.data.database.buildAllDocs(docOptions);
 
       if (docOptions.startkey && docOptions.startkey.indexOf('_design') > -1) {
@@ -252,7 +251,6 @@ function(app, FauxtonAPI, Documents, Databases) {
 
       if (this.toolsView) { this.toolsView.remove(); }
 
-      console.log('showing');
       this.documentsView = this.setView("#dashboard-lower-content", new Documents.Views.AllDocsList({
         database: this.data.database,
         collection: this.data.indexedDocs,
@@ -300,9 +298,7 @@ function(app, FauxtonAPI, Documents, Databases) {
           ddoc = event.ddoc;
 
       if (event.allDocs) {
-        docOptions.include_docs = true;
-        this.data.database.buildAllDocs(docOptions);
-        return;
+        return;// this.data.database.buildAllDocs(docOptions);
       }
 
       this.data.indexedDocs = new Documents.IndexCollection(null, {

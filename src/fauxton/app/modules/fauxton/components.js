@@ -114,7 +114,6 @@ function(app, FauxtonAPI, ace) {
         limit = parseInt(this.collection.params.limit, 10);
       }
 
-      console.log('limi', limit, this.collection.params.limit);
       return limit;
     },
 

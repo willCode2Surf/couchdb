@@ -503,7 +503,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
 
     beforeRender: function () {
       this.advancedOptions = this.insertView('#query', new Views.AdvancedOptions({
-        updateViewFn: this.updateView,
+        updateViewFn: this.updateAllDocs,
         previewFn: this.previewView,
         hasReduce: false,
         showPreview: false,
@@ -520,7 +520,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
 
     },
 
-    updateView: function (event, paramInfo) {
+    updateAllDocs: function (event, paramInfo) {
       event.preventDefault();
 
       var errorParams = paramInfo.errorParams,
@@ -551,6 +551,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
       fragment = fragment + '?' + $.param(params);
       FauxtonAPI.navigate(fragment, {trigger: false});
 
+      console.log('all', fragment, params);
       FauxtonAPI.triggerRouteEvent('updateAllDocs', {allDocs: true});
     },
 
