@@ -1474,14 +1474,9 @@ function(app, FauxtonAPI, Components, Documents, Databases, pouchdb, resizeColum
         fade: true
       });
 
-      var promise = FauxtonAPI.Deferred();
 
-      if (!this.database.allDocs) {
-        this.database.buildAllDocs({limit: Databases.DocLimit.toString(), include_docs: true});
-        promise = this.database.allDocs.fetch();
-      } else {
-        promise.resolve();
-      }
+      this.database.buildAllDocs({limit: Databases.DocLimit.toString(), include_docs: true});
+      var promise = this.database.allDocs.fetch();
 
       promise.then(function () {
         params.docs = that.database.allDocs.map(function (model) { return model.get('doc');}); 
