@@ -494,6 +494,7 @@ Basic Attachments Info
       "name": "Spaghetti with meatballs"
   }
 
+.. _api/doc/retrieving-deleted-documents:
 
 Retrieving Attachments Content
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
