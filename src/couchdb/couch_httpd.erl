@@ -1003,7 +1003,7 @@ split_header(Line) ->
      mochiweb_util:parse_header(Value)}].
 
 read_until(#mp{data_fun=DataFun, buffer=Buffer}=Mp, Pattern, Callback) ->
-    case find_in_binary(Pattern, Buffer) of
+    case couch_util:find_in_binary(Pattern, Buffer) of
     not_found ->
         Callback2 = Callback(Buffer),
         {Buffer2, DataFun2} = DataFun(),
@@ -1077,36 +1077,6 @@ check_for_last(#mp{buffer=Buffer, data_fun=DataFun}=Mp) ->
         {Data, DataFun2} = DataFun(),
         check_for_last(Mp#mp{buffer= <<Buffer/binary, Data/binary>>,
                 data_fun = DataFun2})
-    end.
-
-find_in_binary(_B, <<>>) ->
-    not_found;
-
-find_in_binary(B, Data) ->
-    case binary:match(Data, [B], []) of
-    nomatch ->
-        MatchLength = erlang:min(byte_size(B), byte_size(Data)),
-        match_prefix_at_end(binary:part(B, {0, MatchLength}), 
-                            binary:part(Data, {byte_size(Data), -MatchLength}),
-                            MatchLength, byte_size(Data) - MatchLength);
-    {Pos, _Len} ->
-        {exact, Pos}
-    end.
-
-match_prefix_at_end(Prefix, Data, PrefixLength, N) ->
-    FirstCharMatches = binary:matches(Data, [binary:part(Prefix, {0, 1})], []),
-    match_rest_of_prefix(FirstCharMatches, Prefix, Data, PrefixLength, N).
-
-match_rest_of_prefix([], _Prefix, _Data, _PrefixLength, _N) ->
-    not_found;
-
-match_rest_of_prefix([{Pos, _Len} | Rest], Prefix, Data, PrefixLength, N) ->
-    case binary:match(binary:part(Data, {PrefixLength, Pos - PrefixLength}),
-                      [binary:part(Prefix, {0, PrefixLength - Pos})], []) of
-        nomatch ->
-            match_rest_of_prefix(Rest, Prefix, Data, PrefixLength, N);
-        {_Pos, _Len1} ->
-            {partial, N + Pos}
     end.
 
 validate_bind_address(Address) ->
